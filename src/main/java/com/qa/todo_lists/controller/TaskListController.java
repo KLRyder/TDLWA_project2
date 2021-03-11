@@ -1,0 +1,7 @@
+package com.qa.todo_lists.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class TaskListController {
+}
