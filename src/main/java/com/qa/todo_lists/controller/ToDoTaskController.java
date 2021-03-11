@@ -1,5 +1,6 @@
 package com.qa.todo_lists.controller;
 
+import com.qa.todo_lists.data.dto.ToDoTaskDTO;
 import com.qa.todo_lists.data.model.ToDoTask;
 import com.qa.todo_lists.service.ToDoTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +24,17 @@ public class ToDoTaskController {
     }
 
     @PostMapping
-    public ResponseEntity<ToDoTask> postTask(@RequestBody @Valid ToDoTask task) {
+    public ResponseEntity<ToDoTaskDTO> postTask(@RequestBody @Valid ToDoTask task) {
         return null;
     }
 
     @GetMapping
-    public ResponseEntity<List<ToDoTask>> getTasks(@RequestParam Optional<Long> id) {
+    public ResponseEntity<List<ToDoTaskDTO>> getTasks(@RequestParam Optional<Long> id) {
         return null;
     }
 
     @PatchMapping
-    public ResponseEntity<ToDoTask> updateTask(@RequestBody @Valid ToDoTask task) {
+    public ResponseEntity<ToDoTaskDTO> updateTask(@RequestBody @Valid ToDoTask task) {
         return null;
     }
 
