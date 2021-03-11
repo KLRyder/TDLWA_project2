@@ -24,22 +24,22 @@ public class ToDoTaskController {
     }
 
     @PostMapping
-    public ResponseEntity<ToDoTaskDTO> postTask(@RequestBody @Valid ToDoTask task) {
+    public ResponseEntity<ToDoTaskDTO> post(@RequestBody @Valid ToDoTask task) {
         return null;
     }
 
     @GetMapping
-    public ResponseEntity<List<ToDoTaskDTO>> getTasks(@RequestParam Optional<Long> id) {
+    public ResponseEntity<List<ToDoTaskDTO>> get(@RequestParam Optional<Long> id) {
         return null;
     }
 
     @PatchMapping
-    public ResponseEntity<ToDoTaskDTO> updateTask(@RequestBody @Valid ToDoTask task) {
+    public ResponseEntity<ToDoTaskDTO> update(@RequestBody @Valid ToDoTask task) {
         return null;
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deleteTask(@RequestParam Long id) {
+    public ResponseEntity<String> delete(@RequestParam Long id) {
         return null;
     }
 }

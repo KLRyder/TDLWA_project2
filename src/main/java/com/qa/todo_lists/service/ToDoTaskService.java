@@ -22,11 +22,11 @@ public class ToDoTaskService {
         this.toDoTaskMapper = toDoTaskMapper;
     }
 
-    public ToDoTaskDTO createTask(ToDoTask task) {
+    public ToDoTaskDTO create(ToDoTask task) {
         return null;
     }
 
-    public List<ToDoTaskDTO> readAllTasks() {
+    public List<ToDoTaskDTO> readAll() {
         return null;
     }
 
@@ -34,11 +34,11 @@ public class ToDoTaskService {
         return null;
     }
 
-    public ToDoTaskDTO updateTask(ToDoTask task) throws TaskNotFoundException{
+    public ToDoTaskDTO update(ToDoTask task) throws TaskNotFoundException{
         return null;
     }
 
-    public boolean deleteTask(Long id) {
+    public boolean delete(Long id) {
         return false;
     }
 }
