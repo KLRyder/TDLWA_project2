@@ -11,6 +11,7 @@ import java.util.Objects;
 @Entity
 public class TaskList {
     @Id
+    @Column(name = "task_list_id")
     private Long id;
 
     @NotNull
