@@ -11,12 +11,12 @@ public class TaskListDTO {
     private String name;
     private List<ToDoTaskDTO> tasks;
 
-    public TaskListDTO(Long id, @NotNull String name) {
+    public TaskListDTO(Long id, @NotNull String name, List<ToDoTaskDTO> tasks) {
         this.id = id;
         this.name = name;
     }
 
-    public TaskListDTO(@NotNull String name) {
+    public TaskListDTO(@NotNull String name, List<ToDoTaskDTO> tasks) {
         this.name = name;
     }
 
