@@ -8,6 +8,7 @@ import com.qa.todo_lists.mappers.TaskListMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
 import java.util.List;
 
 @Service
@@ -21,8 +22,8 @@ public class TaskListService {
         this.taskListMapper = taskListMapper;
     }
 
-    public TaskListDTO create(TaskList task) {
-        return null;
+    public TaskListDTO create(TaskList taskList) {
+        return taskListMapper.mapToDTO(taskListRepo.save(taskList));
     }
 
     public List<TaskListDTO> readAll() {
