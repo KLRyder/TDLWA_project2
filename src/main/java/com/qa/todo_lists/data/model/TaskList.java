@@ -5,12 +5,14 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class TaskList {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_list_id")
     private Long id;
 
@@ -18,9 +20,9 @@ public class TaskList {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "pond", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "taskList", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<ToDoTask> tasks;
+    private List<ToDoTask> tasks= new ArrayList<>();;
 
     public TaskList(Long id, @NotNull String name) {
         this.id = id;
@@ -76,5 +78,10 @@ public class TaskList {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (tasks != null ? tasks.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "TaskList id:"+id+", Name: "+name+" tasks: "+tasks;
     }
 }

@@ -4,6 +4,8 @@ import com.qa.todo_lists.data.dto.TaskListDTO;
 import com.qa.todo_lists.data.model.TaskList;
 import com.qa.todo_lists.service.TaskListService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +26,12 @@ public class TaskListController {
 
     @PostMapping
     public ResponseEntity<TaskListDTO> post(@RequestBody @Valid TaskList taskList) {
-        return null;
+        TaskListDTO newTask = taskListService.create(taskList);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", newTask.getId().toString());
+
+        return new ResponseEntity<>(newTask, headers, HttpStatus.CREATED);
     }
 
     @GetMapping
