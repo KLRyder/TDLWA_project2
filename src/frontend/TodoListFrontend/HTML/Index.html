@@ -173,13 +173,13 @@
             <form>
               <div class="mb-3">
                 <label for="List-name" class="col-form-label">List Name:</label>
-                <input type="text" class="form-control" id="List-name">
+                <input type="text" name="name" class="form-control" id="List-name">
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary">Create List</button>
+            <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="submitNewList()">Create List</button>
           </div>
         </div>
       </div>
