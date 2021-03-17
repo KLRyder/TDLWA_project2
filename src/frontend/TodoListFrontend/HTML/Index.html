@@ -113,11 +113,11 @@
     <div class="col-sm-6 col-lg-4 mb-4 msnry-Card" id="taskList_listId" style="position: absolute; left: 0; top: 0;">
       <div class="card p-3">
         <div class="card-body">
-          <h5 class="card-title">
+          <div class="card-title">
             <div class="row">
-              <div class="col-8">_listName</div>
+              <h5 class="col-8" id="list-name_listId">_listName</h5>
               <div class="col-2">
-                <input type="image" src="../img/edit_draft.svg" class="w-100" alt="edit"
+                <input type="image" src="../img/edit_draft.svg" id="edit_listId" class="w-100" alt="edit"
                        data-bs-toggle="modal"
                        data-bs-target="#updateTaskListModal" data-bs-listID="taskList_listId"
                        data-bs-listName="_listName">
@@ -127,12 +127,12 @@
                        data-bs-listID="taskList_listId" onclick="deleteList(_listId)">
               </div>
             </div>
-          </h5>
+          </div>
           <div class="accordion accordion-flush" id="taskListAccordion_listId">
             <!--tasks go here-->
           </div>
           <div class="container align-content-center text-center">
-            <input type="image" src="../img/new.svg" data-bs-toggle="modal" data-bs-target="#createTaskModal"
+            <input type="image" src="../img/new.svg" id="add-task_listId" data-bs-toggle="modal" data-bs-target="#createTaskModal"
                    data-bs-listID="taskList_listId" data-bs-listName="_listName" alt="New Task">
           </div>
         </div>
@@ -280,7 +280,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Update List</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="updateList()">Update List</button>
       </div>
     </div>
   </div>

@@ -35,7 +35,10 @@ public class TaskListService {
     }
 
     public TaskListDTO update(TaskList task) throws TaskListNotFoundException {
-        return null;
+        var updated = taskListRepo.findById(task.getId()).orElseThrow();
+        updated.setName(task.getName());
+        taskListRepo.save(updated);
+        return taskListMapper.mapToDTO(updated);
     }
 
     public boolean delete(Long id) {
