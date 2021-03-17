@@ -1,9 +1,3 @@
-//Load other scripts
-
-// <script async="" src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
-//         integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
-//         crossOrigin="anonymous"></script>
-
 let createTaskModal = document.getElementById('createTaskModal');
 let updateTaskListModal = document.getElementById('updateTaskListModal');
 let updateTaskModal = document.getElementById('updateTaskModal');
@@ -112,3 +106,16 @@ let displayList = taskListJSON => {
     msn.appended(node);
     msn.layout();
 }
+
+let getAllLists = () =>{
+    fetch(apiURL + 'lists').then(res => res.json())
+        .then((data) => {
+            console.log(`Request succeeded with JSON response ${data.length}`);
+            for (let i = 0; i<data.length;i++){
+                displayList(data[i]);
+            }
+        })
+        .catch((error) => console.error(`Request failed ${error}`))
+}
+
+getAllLists();
