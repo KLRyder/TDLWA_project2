@@ -13,9 +13,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin//(origins = "*",allowedHeaders = "*",methods = {RequestMethod.DELETE, RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH})
 @RestController
 @RequestMapping(path = "/lists")
-@CrossOrigin
 public class TaskListController {
     private TaskListService taskListService;
 
@@ -42,7 +42,7 @@ public class TaskListController {
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
-    @PatchMapping
+    @PutMapping
     public ResponseEntity<TaskListDTO> update(@RequestBody @Valid TaskList taskList) {
         TaskListDTO taskListDTO = taskListService.update(taskList);
 

@@ -79,21 +79,53 @@ let submitNewList = () => {
         body: JSON.stringify({"name": listName.value})
     }).then(res => res.json())
         .then((data) => {
-            console.log(`Request succeeded with JSON response ${data.name}`);
             displayList(data);
         })
         .catch((error) => console.error(`Request failed ${error}`))
 }
 
+let updateList = () => {
+    let listName = document.querySelector('#update-list-name');
+    let listId = document.querySelector('#update-listID');
+    fetch(apiURL + 'lists', {
+        method: 'put',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "id": listId.value.substr(8),
+            "name": listName.value
+        })
+    }).then(res => {
+        if (res.status === 200) {
+            updateListNameOnPage(listId.value.substr(8), listName.value)
+        } else {
+            console.error(`Request failed ${res.body}`)
+        }
+    }).catch((error) => console.error(`Request failed ${error}`))
+}
+
+let updateListNameOnPage = (id, name) => {
+    let title = document.getElementById('list-name' + id);
+    let editButton = document.getElementById('edit' + id);
+    let addTaskButton = document.getElementById('add-task' + id);
+
+    title.innerText = name;
+    editButton.setAttribute("data-bs-listName", name);
+    addTaskButton.setAttribute("data-bs-listName", name);
+}
+
 let deleteList = (id) => {
-    fetch(apiURL + 'lists?id='+id, {
+    fetch(apiURL + 'lists?id=' + id, {
         method: 'delete'
     }).then(res => {
-        if (res.status === 200){
-            let toDelete = document.getElementById("taskList"+id);
+        if (res.status === 200) {
+            let toDelete = document.getElementById("taskList" + id);
             msn.remove(toDelete);
             msn.layout();
-        }else{console.error(`Request failed ${res.body}`)}
+        } else {
+            console.error(`Request failed ${res.body}`)
+        }
     }).catch((error) => console.error(`Request failed ${error}`))
 }
 
@@ -104,7 +136,7 @@ let displayList = taskListJSON => {
     // extract from document fragment
     let node = taskClone.getElementById("taskList_listId");
     node.id = "taskList" + taskListJSON.id;
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 9; i++) {
         node.innerHTML = node.innerHTML.replace("_listId", taskListJSON.id);
     }
 
