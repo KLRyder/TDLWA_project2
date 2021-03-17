@@ -39,8 +39,6 @@ public class ToDoTaskService {
         updated.setDescription(task.getDescription());
         updated.setComplete(task.getComplete());
         updated.setDueDate(task.getDueDate());
-        // we dont actually allow moving tasks from one list to another. might be worth looking into.
-        updated.setTaskList(task.getTaskList());
         toDoTaskRepo.save(updated);
         return toDoTaskMapper.mapToDTO(updated);
     }
