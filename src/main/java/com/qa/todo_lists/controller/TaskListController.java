@@ -36,7 +36,8 @@ public class TaskListController {
 
     @GetMapping
     public ResponseEntity<List<TaskListDTO>> get(@RequestParam Optional<Long> id) {
-        List<TaskListDTO> tasks = id.map(aLong -> List.of(taskListService.readById(aLong))).orElseGet(() -> taskListService.readAll());
+        List<TaskListDTO> tasks = id.map(aLong -> List.of(taskListService.readById(aLong)))
+                .orElseGet(() -> taskListService.readAll());
 
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
@@ -48,6 +49,10 @@ public class TaskListController {
 
     @DeleteMapping
     public ResponseEntity<String> delete(@RequestParam Long id) {
-        return null;
+        if (taskListService.delete(id)) {
+            return new ResponseEntity<>("Task list " + id + " deleted successfully.", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Couldn't delete task list" + id +
+                ", List was found but not removed.", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

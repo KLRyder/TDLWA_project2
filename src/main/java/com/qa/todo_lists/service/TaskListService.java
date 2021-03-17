@@ -4,6 +4,7 @@ import com.qa.todo_lists.data.dto.TaskListDTO;
 import com.qa.todo_lists.data.model.TaskList;
 import com.qa.todo_lists.data.repos.TaskListRepo;
 import com.qa.todo_lists.exceptions.TaskListNotFoundException;
+import com.qa.todo_lists.exceptions.TaskNotFoundException;
 import com.qa.todo_lists.mappers.TaskListMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,8 @@ public class TaskListService {
     }
 
     public boolean delete(Long id) {
-        return false;
+        taskListRepo.findById(id).orElseThrow(TaskNotFoundException::new);
+        taskListRepo.deleteById(id);
+        return taskListRepo.findById(id).isEmpty();
     }
 }
