@@ -104,7 +104,7 @@ let submitNewTask = () => {
         })
     }).then(res => res.json())
         .then((data) => {
-            console.log(data);
+            displayTask(data, taskListId);
         })
         .catch((error) => console.error(`Request failed ${error}`))
 }
@@ -169,11 +169,39 @@ let displayList = taskListJSON => {
         node.innerHTML = node.innerHTML.replace("_listName", taskListJSON.name);
     }
 
-    // TODO add tasks
-
     listContainer.append(node);
     msn.appended(node);
     msn.layout();
+
+    let tasks = taskListJSON.tasks;
+    for (let i = 0; i<tasks.length;i++){
+        displayTask(tasks[i],taskListJSON.id);
+    }
+}
+
+let displayTask = (taskJSON, taskListID) => {
+    let template = document.querySelector('#taskTemplate');
+    let taskClone = template.content.cloneNode(true);
+
+    // extract from document fragment
+    let node = taskClone.getElementById('task-_taskId');
+    node.id = 'task-' + taskJSON.id;
+
+    for (let i = 0; i < 11; i++) {
+        node.innerHTML = node.innerHTML.replace("_taskId", taskJSON.id);
+    }
+
+    for (let i = 0; i < 3; i++) {
+        node.innerHTML = node.innerHTML.replace("_taskName", taskJSON.description);
+    }
+
+    node.innerHTML = node.innerHTML.replace("_listId", taskListID);
+
+    document.getElementById('taskListAccordion'+taskListID).append(node);
+
+    if(taskJSON.complete === true){
+        toggleDone(taskJSON.id);
+    }
 }
 
 let getAllLists = () => {
