@@ -16,9 +16,9 @@
     <div class="col-sm-6 col-lg-4 mb-4 msnry-Card" id="_listIdExample" style="position: absolute; left: 0; top: 0;">
       <div class="card p-3">
         <div class="card-body">
-          <h5 class="card-title">
+          <div class="card-title">
             <div class="row">
-              <div class="col-8">_listNameExample</div>
+              <div class="col-8"><h5>_listNameExample</h5></div>
               <div class="col-2">
                 <input type="image" src="../img/edit_draft.svg" class="w-100" alt="edit"
                        data-bs-toggle="modal"
@@ -30,7 +30,7 @@
                        data-bs-listID="_listIdExample">
               </div>
             </div>
-          </h5>
+          </div>
           <div class="accordion accordion-flush" id="taskListAccordion_listIdExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="heading_taskIdExample">
@@ -124,7 +124,7 @@
               </div>
               <div class="col-2">
                 <input type="image" src="../img/delete.svg" class="w-100" alt="delete"
-                       data-bs-listID="taskList_listId">
+                       data-bs-listID="taskList_listId" onclick="deleteList(_listId)">
               </div>
             </div>
           </h5>

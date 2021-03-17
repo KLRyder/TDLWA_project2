@@ -85,6 +85,18 @@ let submitNewList = () => {
         .catch((error) => console.error(`Request failed ${error}`))
 }
 
+let deleteList = (id) => {
+    fetch(apiURL + 'lists?id='+id, {
+        method: 'delete'
+    }).then(res => {
+        if (res.status === 200){
+            let toDelete = document.getElementById("taskList"+id);
+            msn.remove(toDelete);
+            msn.layout();
+        }else{console.error(`Request failed ${res.body}`)}
+    }).catch((error) => console.error(`Request failed ${error}`))
+}
+
 let displayList = taskListJSON => {
     let template = document.querySelector('#taskListTemplate');
     let taskClone = template.content.cloneNode(true);
@@ -92,7 +104,7 @@ let displayList = taskListJSON => {
     // extract from document fragment
     let node = taskClone.getElementById("taskList_listId");
     node.id = "taskList" + taskListJSON.id;
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         node.innerHTML = node.innerHTML.replace("_listId", taskListJSON.id);
     }
 
@@ -107,11 +119,11 @@ let displayList = taskListJSON => {
     msn.layout();
 }
 
-let getAllLists = () =>{
+let getAllLists = () => {
     fetch(apiURL + 'lists').then(res => res.json())
         .then((data) => {
             console.log(`Request succeeded with JSON response ${data.length}`);
-            for (let i = 0; i<data.length;i++){
+            for (let i = 0; i < data.length; i++) {
                 displayList(data[i]);
             }
         })
