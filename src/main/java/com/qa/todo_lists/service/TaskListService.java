@@ -8,7 +8,6 @@ import com.qa.todo_lists.mappers.TaskListMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
 import java.util.List;
 
 @Service
@@ -27,14 +26,14 @@ public class TaskListService {
     }
 
     public List<TaskListDTO> readAll() {
-        return null;
+        return taskListMapper.mapToDTO(taskListRepo.findAll());
     }
 
     public TaskListDTO readById(Long id) throws TaskListNotFoundException {
-        return null;
+        return taskListMapper.mapToDTO(taskListRepo.findById(id).orElseThrow(TaskListNotFoundException::new));
     }
 
-    public TaskListDTO update(TaskList task) throws TaskListNotFoundException{
+    public TaskListDTO update(TaskList task) throws TaskListNotFoundException {
         return null;
     }
 

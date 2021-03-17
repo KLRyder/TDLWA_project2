@@ -36,7 +36,9 @@ public class TaskListController {
 
     @GetMapping
     public ResponseEntity<List<TaskListDTO>> get(@RequestParam Optional<Long> id) {
-        return null;
+        List<TaskListDTO> tasks = id.map(aLong -> List.of(taskListService.readById(aLong))).orElseGet(() -> taskListService.readAll());
+
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
     @PatchMapping
