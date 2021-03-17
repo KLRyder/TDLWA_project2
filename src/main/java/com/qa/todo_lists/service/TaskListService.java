@@ -8,6 +8,7 @@ import com.qa.todo_lists.exceptions.TaskNotFoundException;
 import com.qa.todo_lists.mappers.TaskListMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,10 +27,12 @@ public class TaskListService {
         return taskListMapper.mapToDTO(taskListRepo.save(taskList));
     }
 
+    @Transactional
     public List<TaskListDTO> readAll() {
         return taskListMapper.mapToDTO(taskListRepo.findAll());
     }
 
+    @Transactional
     public TaskListDTO readById(Long id) throws TaskListNotFoundException {
         return taskListMapper.mapToDTO(taskListRepo.findById(id).orElseThrow(TaskListNotFoundException::new));
     }

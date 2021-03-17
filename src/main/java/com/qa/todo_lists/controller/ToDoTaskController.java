@@ -37,7 +37,10 @@ public class ToDoTaskController {
 
     @GetMapping
     public ResponseEntity<List<ToDoTaskDTO>> get(@RequestParam Optional<Long> id) {
-        return null;
+        List<ToDoTaskDTO> tasks = id.map(aLong -> List.of(taskService.readById(aLong)))
+                .orElseGet(() -> taskService.readAll());
+
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
     @PutMapping
