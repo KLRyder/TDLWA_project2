@@ -44,7 +44,9 @@ public class TaskListController {
 
     @PatchMapping
     public ResponseEntity<TaskListDTO> update(@RequestBody @Valid TaskList taskList) {
-        return null;
+        TaskListDTO taskListDTO = taskListService.update(taskList);
+
+        return new ResponseEntity<>(taskListDTO, HttpStatus.OK);
     }
 
     @DeleteMapping
