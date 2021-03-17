@@ -76,29 +76,54 @@ let submitNewList = () => {
         headers: {
             "Content-type": "application/json"
         },
-        body: JSON.stringify({"name": listName.value})
+        body: JSON.stringify({
+            "name": listName.value
+        })
     }).then(res => res.json())
         .then((data) => {
             displayList(data);
+        })
+        .catch((error) => console.error(`Request failed ${error}`));
+}
+
+let submitNewTask = () => {
+    let taskDescription = document.getElementById("task-name").value;
+    let complete = false;
+    let taskListId = document.getElementById("listID").value.substr(8);
+    fetch(apiURL + 'tasks', {
+        method: 'post',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "taskList": {
+                "id": taskListId
+            },
+            "description": taskDescription,
+            "complete": complete
+        })
+    }).then(res => res.json())
+        .then((data) => {
+            displayTask(data, taskListId);
         })
         .catch((error) => console.error(`Request failed ${error}`))
 }
 
 let updateList = () => {
-    let listName = document.querySelector('#update-list-name');
-    let listId = document.querySelector('#update-listID');
+    let listName = document.querySelector('#update-list-name').value;
+    let listId = document.querySelector('#update-listID').value.substr(8);
     fetch(apiURL + 'lists', {
         method: 'put',
         headers: {
             "Content-type": "application/json"
         },
         body: JSON.stringify({
-            "id": listId.value.substr(8),
-            "name": listName.value
+            "id": listId,
+            "name": listName
         })
     }).then(res => {
         if (res.status === 200) {
-            updateListNameOnPage(listId.value.substr(8), listName.value)
+            updateListNameOnPage(listId, listName)
         } else {
             console.error(`Request failed ${res.body}`)
         }
@@ -144,11 +169,39 @@ let displayList = taskListJSON => {
         node.innerHTML = node.innerHTML.replace("_listName", taskListJSON.name);
     }
 
-    // TODO add tasks
-
     listContainer.append(node);
     msn.appended(node);
     msn.layout();
+
+    let tasks = taskListJSON.tasks;
+    for (let i = 0; i<tasks.length;i++){
+        displayTask(tasks[i],taskListJSON.id);
+    }
+}
+
+let displayTask = (taskJSON, taskListID) => {
+    let template = document.querySelector('#taskTemplate');
+    let taskClone = template.content.cloneNode(true);
+
+    // extract from document fragment
+    let node = taskClone.getElementById('task-_taskId');
+    node.id = 'task-' + taskJSON.id;
+
+    for (let i = 0; i < 11; i++) {
+        node.innerHTML = node.innerHTML.replace("_taskId", taskJSON.id);
+    }
+
+    for (let i = 0; i < 3; i++) {
+        node.innerHTML = node.innerHTML.replace("_taskName", taskJSON.description);
+    }
+
+    node.innerHTML = node.innerHTML.replace("_listId", taskListID);
+
+    document.getElementById('taskListAccordion'+taskListID).append(node);
+
+    if(taskJSON.complete === true){
+        toggleDone(taskJSON.id);
+    }
 }
 
 let getAllLists = () => {

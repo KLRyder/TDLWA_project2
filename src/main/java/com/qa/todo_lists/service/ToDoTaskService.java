@@ -23,15 +23,15 @@ public class ToDoTaskService {
     }
 
     public ToDoTaskDTO create(ToDoTask task) {
-        return null;
+        return toDoTaskMapper.mapToDTO(toDoTaskRepo.save(task));
     }
 
     public List<ToDoTaskDTO> readAll() {
-        return null;
+        return toDoTaskMapper.mapToDTO(toDoTaskRepo.findAll());
     }
 
     public ToDoTaskDTO readById(Long id) throws TaskNotFoundException {
-        return null;
+        return toDoTaskMapper.mapToDTO(toDoTaskRepo.findById(id).orElseThrow(TaskNotFoundException::new));
     }
 
     public ToDoTaskDTO update(ToDoTask task) throws TaskNotFoundException{

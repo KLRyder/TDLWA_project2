@@ -20,9 +20,9 @@ public class TaskList {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "taskList", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "taskList", fetch = FetchType.LAZY, orphanRemoval = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<ToDoTask> tasks= new ArrayList<>();;
+    private List<ToDoTask> tasks= new ArrayList<>();
 
     public TaskList(Long id, @NotNull String name) {
         this.id = id;

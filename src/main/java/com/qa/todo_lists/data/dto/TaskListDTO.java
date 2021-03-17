@@ -14,10 +14,12 @@ public class TaskListDTO {
     public TaskListDTO(Long id, @NotNull String name, List<ToDoTaskDTO> tasks) {
         this.id = id;
         this.name = name;
+        this.tasks = tasks;
     }
 
     public TaskListDTO(@NotNull String name, List<ToDoTaskDTO> tasks) {
         this.name = name;
+        this.tasks = tasks;
     }
 
     public TaskListDTO() {

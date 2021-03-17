@@ -132,7 +132,8 @@
             <!--tasks go here-->
           </div>
           <div class="container align-content-center text-center">
-            <input type="image" src="../img/new.svg" id="add-task_listId" data-bs-toggle="modal" data-bs-target="#createTaskModal"
+            <input type="image" src="../img/new.svg" id="add-task_listId" data-bs-toggle="modal"
+                   data-bs-target="#createTaskModal"
                    data-bs-listID="taskList_listId" data-bs-listName="_listName" alt="New Task">
           </div>
         </div>
@@ -144,7 +145,7 @@
       <h2 class="accordion-header" id="heading_taskId">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseTask_taskId" aria-expanded="false" aria-controls="collapseTask_taskId">
-          Example task #1
+          _taskName
         </button>
       </h2>
       <div id="collapseTask_taskId" class="accordion-collapse collapse" aria-labelledby="heading_taskId"
@@ -197,7 +198,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Create Task</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitNewTask()">Create Task
+        </button>
       </div>
     </div>
   </div>
@@ -275,12 +277,13 @@
             <label for="update-list-name" class="col-form-label">New Name:</label>
             <input type="text" class="form-control" id="update-list-name">
           </div>
-          <input type="hidden" id="update-listID" name="listID" value="0">
+          <input type="hidden" id="update-listID" name="update-listID" value="0">
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="updateList()">Update List</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="updateList()">Update List
+        </button>
       </div>
     </div>
   </div>
