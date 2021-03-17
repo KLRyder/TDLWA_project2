@@ -45,7 +45,8 @@ public class ToDoTaskController {
 
     @PutMapping
     public ResponseEntity<ToDoTaskDTO> update(@RequestBody @Valid ToDoTask task) {
-        return null;
+        ToDoTaskDTO updatedTask = taskService.update(task);
+        return new ResponseEntity<>(updatedTask, HttpStatus.OK);
     }
 
     @DeleteMapping

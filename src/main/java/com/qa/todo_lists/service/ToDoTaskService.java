@@ -35,7 +35,14 @@ public class ToDoTaskService {
     }
 
     public ToDoTaskDTO update(ToDoTask task) throws TaskNotFoundException{
-        return null;
+        var updated = toDoTaskRepo.findById(task.getId()).orElseThrow(TaskNotFoundException::new);
+        updated.setDescription(task.getDescription());
+        updated.setComplete(task.getComplete());
+        updated.setDueDate(task.getDueDate());
+        // we dont actually allow moving tasks from one list to another. might be worth looking into.
+        updated.setTaskList(task.getTaskList());
+        toDoTaskRepo.save(updated);
+        return toDoTaskMapper.mapToDTO(updated);
     }
 
     public boolean delete(Long id) {
