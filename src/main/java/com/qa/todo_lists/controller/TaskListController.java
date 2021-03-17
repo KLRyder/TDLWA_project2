@@ -26,12 +26,12 @@ public class TaskListController {
 
     @PostMapping
     public ResponseEntity<TaskListDTO> post(@RequestBody @Valid TaskList taskList) {
-        TaskListDTO newTask = taskListService.create(taskList);
+        TaskListDTO newTaskList = taskListService.create(taskList);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", newTask.getId().toString());
+        headers.add("Location", newTaskList.getId().toString());
 
-        return new ResponseEntity<>(newTask, headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(newTaskList, headers, HttpStatus.CREATED);
     }
 
     @GetMapping
