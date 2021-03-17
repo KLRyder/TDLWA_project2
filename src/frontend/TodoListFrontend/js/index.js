@@ -97,7 +97,7 @@ let displayList = taskListJSON => {
 
     // extract from document fragment
     let node = taskClone.getElementById("taskList_listId");
-    node.id = "taskList"+taskListJSON.id;
+    node.id = "taskList" + taskListJSON.id;
     for (let i = 0; i < 5; i++) {
         node.innerHTML = node.innerHTML.replace("_listId", taskListJSON.id);
     }
