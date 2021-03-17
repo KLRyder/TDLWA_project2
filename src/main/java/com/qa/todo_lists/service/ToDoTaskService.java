@@ -23,7 +23,7 @@ public class ToDoTaskService {
     }
 
     public ToDoTaskDTO create(ToDoTask task) {
-        return null;
+        return toDoTaskMapper.mapToDTO(toDoTaskRepo.save(task));
     }
 
     public List<ToDoTaskDTO> readAll() {
