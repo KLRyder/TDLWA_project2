@@ -76,29 +76,54 @@ let submitNewList = () => {
         headers: {
             "Content-type": "application/json"
         },
-        body: JSON.stringify({"name": listName.value})
+        body: JSON.stringify({
+            "name": listName.value
+        })
     }).then(res => res.json())
         .then((data) => {
             displayList(data);
+        })
+        .catch((error) => console.error(`Request failed ${error}`));
+}
+
+let submitNewTask = () => {
+    let taskDescription = document.getElementById("task-name").value;
+    let complete = false;
+    let taskListId = document.getElementById("listID").value.substr(8);
+    fetch(apiURL + 'tasks', {
+        method: 'post',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "taskList": {
+                "id": taskListId
+            },
+            "description": taskDescription,
+            "complete": complete
+        })
+    }).then(res => res.json())
+        .then((data) => {
+            console.log(data);
         })
         .catch((error) => console.error(`Request failed ${error}`))
 }
 
 let updateList = () => {
-    let listName = document.querySelector('#update-list-name');
-    let listId = document.querySelector('#update-listID');
+    let listName = document.querySelector('#update-list-name').value;
+    let listId = document.querySelector('#update-listID').value.substr(8);
     fetch(apiURL + 'lists', {
         method: 'put',
         headers: {
             "Content-type": "application/json"
         },
         body: JSON.stringify({
-            "id": listId.value.substr(8),
-            "name": listName.value
+            "id": listId,
+            "name": listName
         })
     }).then(res => {
         if (res.status === 200) {
-            updateListNameOnPage(listId.value.substr(8), listName.value)
+            updateListNameOnPage(listId, listName)
         } else {
             console.error(`Request failed ${res.body}`)
         }
