@@ -33,7 +33,7 @@ public class ToDoTaskController {
         return null;
     }
 
-    @PatchMapping
+    @PutMapping
     public ResponseEntity<ToDoTaskDTO> update(@RequestBody @Valid ToDoTask task) {
         return null;
     }
