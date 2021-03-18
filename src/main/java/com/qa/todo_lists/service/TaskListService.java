@@ -44,8 +44,10 @@ public class TaskListService {
         return taskListMapper.mapToDTO(updated);
     }
 
-    public boolean delete(Long id) {
-        taskListRepo.findById(id).orElseThrow(TaskNotFoundException::new);
+    public boolean delete(Long id) throws TaskListNotFoundException{
+        if(taskListRepo.findById(id).isEmpty()){
+            throw new TaskListNotFoundException();
+        }
         taskListRepo.deleteById(id);
         return taskListRepo.findById(id).isEmpty();
     }

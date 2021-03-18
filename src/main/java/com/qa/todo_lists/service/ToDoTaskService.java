@@ -44,7 +44,9 @@ public class ToDoTaskService {
     }
 
     public boolean delete(Long id) throws TaskNotFoundException{
-        toDoTaskRepo.findById(id).orElseThrow(TaskNotFoundException::new);
+        if(toDoTaskRepo.findById(id).isEmpty()){
+            throw new TaskNotFoundException();
+        }
         toDoTaskRepo.deleteById(id);
         return toDoTaskRepo.findById(id).isEmpty();
     }
