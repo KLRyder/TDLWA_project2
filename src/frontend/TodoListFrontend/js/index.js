@@ -84,7 +84,7 @@ function sendToggleDoneUpdate(taskId) {
 }
 
 function toggleDone(taskId) {
-    let taskIsDone = document.getElementById("task-"+taskId)
+    let taskIsDone = document.getElementById("task-" + taskId)
     let taskButton = taskIsDone.querySelector("button");
     taskIsDone.setAttribute("data-isDone", (taskIsDone.getAttribute("data-isDone") === 'false').toString())
 
@@ -176,7 +176,7 @@ let updateTask = () => {
         })
     }).then(res => {
         if (res.status === 200) {
-            updateTaskOnPage(taskId, taskDescription)
+            updateTaskOnPage(taskId, taskDescription, taskDate)
         } else {
             console.error(`Request failed ${res.body}`)
         }
@@ -193,11 +193,21 @@ let updateListNameOnPage = (id, name) => {
     addTaskButton.setAttribute("data-bs-listName", name);
 }
 
-let updateTaskOnPage = (id, name) => {
+let updateTaskOnPage = (id, name, date) => {
     let taskName = document.getElementById('heading' + id).querySelector(".accordion-button");
     let editButton = document.getElementById('edit-task' + id);
+    //get rid of any date if exists
+    let oldDate = taskName.querySelector("span");
+    if(oldDate !== null){
+        oldDate.remove()
+    }
 
     taskName.innerText = name;
+
+    if (date !== ""){
+        taskName.innerHTML = taskName.innerHTML + "&nbsp<span>Due: " + date + "</span>"
+    }
+
     editButton.setAttribute("data-bs-taskName", name);
 }
 
@@ -272,6 +282,11 @@ let displayTask = (taskJSON, taskListID) => {
     node.innerHTML = node.innerHTML.replace("_listId", taskListID);
 
     document.getElementById('taskListAccordion' + taskListID).append(node);
+
+    if (taskJSON.dueDate !== null) {
+        let taskNameButton = node.querySelector("button");
+        taskNameButton.innerHTML = taskNameButton.innerHTML + "&nbsp<span>Due: " + taskJSON.dueDate.substr(0,10) + "</span>"
+    }
 
     if (taskJSON.complete === true) {
         toggleDone(taskJSON.id);
