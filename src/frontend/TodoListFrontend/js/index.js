@@ -116,6 +116,7 @@ let submitNewTask = () => {
     let taskDescription = document.getElementById("task-name").value;
     let complete = false;
     let taskListId = document.getElementById("listID").value.substr(8);
+    let taskDue = document.getElementById("Due-Date")
     fetch(apiURL + 'tasks', {
         method: 'post',
         headers: {
@@ -126,7 +127,8 @@ let submitNewTask = () => {
                 "id": taskListId
             },
             "description": taskDescription,
-            "complete": complete
+            "complete": complete,
+            "dueDate": taskDue.value
         })
     }).then(res => res.json())
         .then((data) => {
@@ -160,7 +162,7 @@ let updateTask = () => {
     let taskDescription = document.querySelector('#update-task-name').value;
     let taskId = document.querySelector('#update-taskID').value;
     let taskDone = document.getElementById('task-' + taskId).getAttribute("data-isDone");
-    // let taskDate = document.querySelector('#update-Due-Date').value;
+    let taskDate = document.querySelector('#update-Due-Date').value;
     fetch(apiURL + 'tasks', {
         method: 'put',
         headers: {
@@ -169,7 +171,7 @@ let updateTask = () => {
         body: JSON.stringify({
             "id": taskId,
             "description": taskDescription,
-            // "dueDate": taskDate,
+            "dueDate": taskDate,
             "complete": taskDone
         })
     }).then(res => {
