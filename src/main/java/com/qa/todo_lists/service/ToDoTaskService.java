@@ -35,7 +35,12 @@ public class ToDoTaskService {
     }
 
     public ToDoTaskDTO update(ToDoTask task) throws TaskNotFoundException{
-        return null;
+        var updated = toDoTaskRepo.findById(task.getId()).orElseThrow(TaskNotFoundException::new);
+        updated.setDescription(task.getDescription());
+        updated.setComplete(task.getComplete());
+        updated.setDueDate(task.getDueDate());
+        toDoTaskRepo.save(updated);
+        return toDoTaskMapper.mapToDTO(updated);
     }
 
     public boolean delete(Long id) {

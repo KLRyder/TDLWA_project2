@@ -32,7 +32,7 @@ updateTaskModal.addEventListener('show.bs.modal', function (event) {
     let button = event.relatedTarget;
     let taskId = button.getAttribute('data-bs-taskID');
     let taskName = button.getAttribute('data-bs-taskName');
-    let taskDate = button.getAttribute('data-bs-taskDate')
+    let taskDate = button.getAttribute('data-bs-taskDate');
 
     // Update the modal's content.
     let modalName = updateTaskModal.querySelector('#update-task-name');
@@ -130,14 +130,47 @@ let updateList = () => {
     }).catch((error) => console.error(`Request failed ${error}`))
 }
 
+let updateTask = () => {
+    let taskDescription = document.querySelector('#update-task-name').value;
+    let taskId = document.querySelector('#update-taskID').value;
+    let taskDone = document.getElementById('task-'+taskId).getAttribute("data-isDone");
+    // let taskDate = document.querySelector('#update-Due-Date').value;
+    fetch(apiURL + 'tasks', {
+        method: 'put',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "id": taskId,
+            "description": taskDescription,
+            // "dueDate": taskDate,
+            "complete": taskDone
+        })
+    }).then(res => {
+        if (res.status === 200) {
+            updateTaskOnPage(taskId, taskDescription)
+        } else {
+            console.error(`Request failed ${res.body}`)
+        }
+    }).catch((error) => console.error(`Request failed ${error}`))
+}
+
 let updateListNameOnPage = (id, name) => {
     let title = document.getElementById('list-name' + id);
-    let editButton = document.getElementById('edit' + id);
+    let editButton = document.getElementById('edit-list' + id);
     let addTaskButton = document.getElementById('add-task' + id);
 
     title.innerText = name;
     editButton.setAttribute("data-bs-listName", name);
     addTaskButton.setAttribute("data-bs-listName", name);
+}
+
+let updateTaskOnPage = (id, name) => {
+    let taskName = document.getElementById('heading'+id).querySelector(".accordion-button");
+    let editButton = document.getElementById('edit-task'+id);
+
+    taskName.innerText = name;
+    editButton.setAttribute("data-bs-taskName", name);
 }
 
 let deleteList = (id) => {
@@ -207,7 +240,6 @@ let displayTask = (taskJSON, taskListID) => {
 let getAllLists = () => {
     fetch(apiURL + 'lists').then(res => res.json())
         .then((data) => {
-            console.log(`Request succeeded with JSON response ${data.length}`);
             for (let i = 0; i < data.length; i++) {
                 displayList(data[i]);
             }
