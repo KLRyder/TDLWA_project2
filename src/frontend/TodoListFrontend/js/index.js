@@ -84,7 +84,7 @@ function sendToggleDoneUpdate(taskId) {
 }
 
 function toggleDone(taskId) {
-    let taskIsDone = document.getElementById("task-"+taskId)
+    let taskIsDone = document.getElementById("task-" + taskId)
     let taskButton = taskIsDone.querySelector("button");
     taskIsDone.setAttribute("data-isDone", (taskIsDone.getAttribute("data-isDone") === 'false').toString())
 
@@ -116,6 +116,7 @@ let submitNewTask = () => {
     let taskDescription = document.getElementById("task-name").value;
     let complete = false;
     let taskListId = document.getElementById("listID").value.substr(8);
+    let taskDue = document.getElementById("Due-Date")
     fetch(apiURL + 'tasks', {
         method: 'post',
         headers: {
@@ -126,7 +127,8 @@ let submitNewTask = () => {
                 "id": taskListId
             },
             "description": taskDescription,
-            "complete": complete
+            "complete": complete,
+            "dueDate": taskDue.value
         })
     }).then(res => res.json())
         .then((data) => {
@@ -160,7 +162,7 @@ let updateTask = () => {
     let taskDescription = document.querySelector('#update-task-name').value;
     let taskId = document.querySelector('#update-taskID').value;
     let taskDone = document.getElementById('task-' + taskId).getAttribute("data-isDone");
-    // let taskDate = document.querySelector('#update-Due-Date').value;
+    let taskDate = document.querySelector('#update-Due-Date').value;
     fetch(apiURL + 'tasks', {
         method: 'put',
         headers: {
@@ -169,12 +171,12 @@ let updateTask = () => {
         body: JSON.stringify({
             "id": taskId,
             "description": taskDescription,
-            // "dueDate": taskDate,
+            "dueDate": taskDate,
             "complete": taskDone
         })
     }).then(res => {
         if (res.status === 200) {
-            updateTaskOnPage(taskId, taskDescription)
+            updateTaskOnPage(taskId, taskDescription, taskDate)
         } else {
             console.error(`Request failed ${res.body}`)
         }
@@ -191,11 +193,21 @@ let updateListNameOnPage = (id, name) => {
     addTaskButton.setAttribute("data-bs-listName", name);
 }
 
-let updateTaskOnPage = (id, name) => {
+let updateTaskOnPage = (id, name, date) => {
     let taskName = document.getElementById('heading' + id).querySelector(".accordion-button");
     let editButton = document.getElementById('edit-task' + id);
+    //get rid of any date if exists
+    let oldDate = taskName.querySelector("span");
+    if(oldDate !== null){
+        oldDate.remove()
+    }
 
     taskName.innerText = name;
+
+    if (date !== ""){
+        taskName.innerHTML = taskName.innerHTML + "&nbsp<span>Due: " + date + "</span>"
+    }
+
     editButton.setAttribute("data-bs-taskName", name);
 }
 
@@ -270,6 +282,11 @@ let displayTask = (taskJSON, taskListID) => {
     node.innerHTML = node.innerHTML.replace("_listId", taskListID);
 
     document.getElementById('taskListAccordion' + taskListID).append(node);
+
+    if (taskJSON.dueDate !== null) {
+        let taskNameButton = node.querySelector("button");
+        taskNameButton.innerHTML = taskNameButton.innerHTML + "&nbsp<span>Due: " + taskJSON.dueDate.substr(0,10) + "</span>"
+    }
 
     if (taskJSON.complete === true) {
         toggleDone(taskJSON.id);
