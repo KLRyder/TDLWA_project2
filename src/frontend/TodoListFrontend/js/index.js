@@ -235,6 +235,8 @@ let displayTask = (taskJSON, taskListID) => {
     if(taskJSON.complete === true){
         toggleDone(taskJSON.id);
     }
+
+    msn.format();
 }
 
 let getAllLists = () => {
