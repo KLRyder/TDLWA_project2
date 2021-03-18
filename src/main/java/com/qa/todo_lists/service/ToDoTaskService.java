@@ -43,7 +43,9 @@ public class ToDoTaskService {
         return toDoTaskMapper.mapToDTO(updated);
     }
 
-    public boolean delete(Long id) {
-        return false;
+    public boolean delete(Long id) throws TaskNotFoundException{
+        toDoTaskRepo.findById(id).orElseThrow(TaskNotFoundException::new);
+        toDoTaskRepo.deleteById(id);
+        return toDoTaskRepo.findById(id).isEmpty();
     }
 }

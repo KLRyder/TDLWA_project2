@@ -123,8 +123,8 @@
                        data-bs-listName="_listName">
               </div>
               <div class="col-2">
-                <input type="image" src="../img/delete.svg" class="w-100" alt="delete"
-                       data-bs-listID="taskList_listId" onclick="deleteList(_listId)">
+                <input type="image" src="../img/delete.svg" class="w-100" alt="delete" data-bs-listID="taskList_listId"
+                       onclick="deleteList(_listId)" id="delete-list_listId">
               </div>
             </div>
           </div>
@@ -133,8 +133,8 @@
           </div>
           <div class="container align-content-center text-center">
             <input type="image" src="../img/new.svg" id="add-task_listId" data-bs-toggle="modal"
-                   data-bs-target="#createTaskModal"
-                   data-bs-listID="taskList_listId" data-bs-listName="_listName" alt="New Task">
+                   data-bs-target="#createTaskModal" data-bs-listID="taskList_listId" data-bs-listName="_listName"
+                   alt="New Task">
           </div>
         </div>
       </div>
@@ -158,7 +158,8 @@
                      data-bs-taskDate="">
             </div>
             <div class="col">
-              <input type="image" src="../img/delete.svg" alt="delete" id="delete_taskId">
+              <input type="image" src="../img/delete.svg" alt="delete" id="delete-task_taskId"
+                     onclick="deleteTask(_taskId)">
             </div>
             <div class="col">
               <input type="image" src="../img/confirm.svg" alt="check" id="toggle_taskId"
@@ -228,7 +229,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="updateTask()">Update Task</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="updateTask()">Update Task
+        </button>
       </div>
     </div>
   </div>
