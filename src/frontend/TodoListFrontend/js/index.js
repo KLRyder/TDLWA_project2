@@ -59,9 +59,35 @@ updateTaskListModal.addEventListener('show.bs.modal', function (event) {
     modelListId.setAttribute("value", listId);
 })
 
+function sendToggleDoneUpdate(taskId) {
+    let taskDescription = document.getElementById('heading' + taskId).querySelector(".accordion-button").innerText;
+    let taskDone = document.getElementById('task-' + taskId).getAttribute("data-isDone") === 'false';
+    // let taskDate = document.querySelector('#update-Due-Date').value;
+    fetch(apiURL + 'tasks', {
+        method: 'put',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "id": taskId,
+            "description": taskDescription,
+            // "dueDate": taskDate,
+            "complete": taskDone
+        })
+    }).then(res => {
+        if (res.status === 200) {
+            toggleDone(taskId);
+        } else {
+            console.error(`Request failed ${res.body}`)
+        }
+    }).catch((error) => console.error(`Request failed ${error}`))
+}
+
 function toggleDone(taskId) {
-    let taskHeading = document.getElementById('heading' + taskId);
-    let taskButton = taskHeading.querySelector("button")
+    let taskIsDone = document.getElementById("task-"+taskId)
+    let taskButton = taskIsDone.querySelector("button");
+    taskIsDone.setAttribute("data-isDone", (taskIsDone.getAttribute("data-isDone") === 'false').toString())
+
     if (taskButton.innerHTML.substr(0, 3) === '<s>') {
         taskButton.innerHTML = taskButton.innerHTML.substr(3, taskButton.innerHTML.length - 7)
     } else {
@@ -133,7 +159,7 @@ let updateList = () => {
 let updateTask = () => {
     let taskDescription = document.querySelector('#update-task-name').value;
     let taskId = document.querySelector('#update-taskID').value;
-    let taskDone = document.getElementById('task-'+taskId).getAttribute("data-isDone");
+    let taskDone = document.getElementById('task-' + taskId).getAttribute("data-isDone");
     // let taskDate = document.querySelector('#update-Due-Date').value;
     fetch(apiURL + 'tasks', {
         method: 'put',
@@ -166,8 +192,8 @@ let updateListNameOnPage = (id, name) => {
 }
 
 let updateTaskOnPage = (id, name) => {
-    let taskName = document.getElementById('heading'+id).querySelector(".accordion-button");
-    let editButton = document.getElementById('edit-task'+id);
+    let taskName = document.getElementById('heading' + id).querySelector(".accordion-button");
+    let editButton = document.getElementById('edit-task' + id);
 
     taskName.innerText = name;
     editButton.setAttribute("data-bs-taskName", name);
@@ -207,8 +233,8 @@ let displayList = taskListJSON => {
     msn.layout();
 
     let tasks = taskListJSON.tasks;
-    for (let i = 0; i<tasks.length;i++){
-        displayTask(tasks[i],taskListJSON.id);
+    for (let i = 0; i < tasks.length; i++) {
+        displayTask(tasks[i], taskListJSON.id);
     }
 }
 
@@ -230,9 +256,9 @@ let displayTask = (taskJSON, taskListID) => {
 
     node.innerHTML = node.innerHTML.replace("_listId", taskListID);
 
-    document.getElementById('taskListAccordion'+taskListID).append(node);
+    document.getElementById('taskListAccordion' + taskListID).append(node);
 
-    if(taskJSON.complete === true){
+    if (taskJSON.complete === true) {
         toggleDone(taskJSON.id);
     }
 }
