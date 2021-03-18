@@ -117,7 +117,7 @@
             <div class="row">
               <h5 class="col-8" id="list-name_listId">_listName</h5>
               <div class="col-2">
-                <input type="image" src="../img/edit_draft.svg" id="edit_listId" class="w-100" alt="edit"
+                <input type="image" src="../img/edit_draft.svg" id="edit-list_listId" class="w-100" alt="edit"
                        data-bs-toggle="modal"
                        data-bs-target="#updateTaskListModal" data-bs-listID="taskList_listId"
                        data-bs-listName="_listName">
@@ -141,7 +141,7 @@
     </div>
   </template>
   <template id="taskTemplate">
-    <div class="accordion-item" id="task-_taskId">
+    <div class="accordion-item" id="task-_taskId" data-isDone="false">
       <h2 class="accordion-header" id="heading_taskId">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseTask_taskId" aria-expanded="false" aria-controls="collapseTask_taskId">
@@ -153,8 +153,7 @@
         <div class="accordion-body">
           <div class="row text-center">
             <div class="col">
-              <input type="image" src="../img/edit_draft.svg" alt="edit" data-bs-toggle="modal"
-                     id="edit_taskId"
+              <input type="image" src="../img/edit_draft.svg" alt="edit" data-bs-toggle="modal" id="edit-task_taskId"
                      data-bs-target="#updateTaskModal" data-bs-taskID="_taskId" data-bs-taskName="_taskName"
                      data-bs-taskDate="">
             </div>
@@ -224,12 +223,12 @@
             <label for="update-Due-Date" class="col-form-label">Due date (optional):</label>
             <input type="date" class="form-control" id="update-Due-Date">
           </div>
-          <input type="hidden" id="update-taskID" name="taskID" value="0">
+          <input type="hidden" id="update-taskID" name="update-taskID" value="0">
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Update Task</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="updateTask()">Update Task</button>
       </div>
     </div>
   </div>
