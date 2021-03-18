@@ -262,7 +262,7 @@ let displayTask = (taskJSON, taskListID) => {
         toggleDone(taskJSON.id);
     }
 
-    msn.format();
+    msn.layout();
 }
 
 let getAllLists = () => {
