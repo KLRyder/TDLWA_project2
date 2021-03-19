@@ -14,6 +14,7 @@ public class ToDoTask {
 
     @ManyToOne(targetEntity = TaskList.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "task_list")
+    @NotNull
     private TaskList taskList;
 
     @NotNull
@@ -25,7 +26,7 @@ public class ToDoTask {
     @NotNull
     private Boolean complete;
 
-    public ToDoTask(Long id, TaskList taskList, @NotNull String description, Date dueDate, @NotNull Boolean complete) {
+    public ToDoTask(Long id, @NotNull TaskList taskList, @NotNull String description, Date dueDate, @NotNull Boolean complete) {
         this.id = id;
         this.taskList = taskList;
         this.description = description;
@@ -33,14 +34,14 @@ public class ToDoTask {
         this.complete = complete;
     }
 
-    public ToDoTask(TaskList taskList, @NotNull String description, Date dueDate, @NotNull Boolean complete) {
+    public ToDoTask(@NotNull TaskList taskList, @NotNull String description, Date dueDate, @NotNull Boolean complete) {
         this.taskList = taskList;
         this.description = description;
         this.dueDate = dueDate;
         this.complete = complete;
     }
 
-    public ToDoTask(TaskList taskList, @NotNull String description, @NotNull Boolean complete) {
+    public ToDoTask(@NotNull TaskList taskList, @NotNull String description, @NotNull Boolean complete) {
         this.taskList = taskList;
         this.description = description;
         this.complete = complete;
@@ -91,12 +92,12 @@ public class ToDoTask {
 
     @Override
     public boolean equals(Object o) {
+        if (o == null)return false;
         if (this == o) return true;
         if (!(o instanceof ToDoTask)) return false;
 
         ToDoTask toDoTask = (ToDoTask) o;
 
-        if (!Objects.equals(id, toDoTask.id)) return false;
         if (!taskList.equals(toDoTask.taskList)) return false;
         if (!description.equals(toDoTask.description)) return false;
         if (!Objects.equals(dueDate, toDoTask.dueDate)) return false;
@@ -105,8 +106,7 @@ public class ToDoTask {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + taskList.hashCode();
+        int result = taskList != null ? taskList.hashCode(): 0;
         result = 31 * result + description.hashCode();
         result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
         result = 31 * result + complete.hashCode();

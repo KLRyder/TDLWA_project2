@@ -67,15 +67,14 @@ public class TaskList {
 
         TaskList taskList = (TaskList) o;
 
-        if (!Objects.equals(id, taskList.id)) return false;
         if (!Objects.equals(name, taskList.name)) return false;
+        if (!Objects.equals(tasks, taskList.tasks)) return false;
         return Objects.equals(tasks, taskList.tasks);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (tasks != null ? tasks.hashCode() : 0);
         return result;
     }
