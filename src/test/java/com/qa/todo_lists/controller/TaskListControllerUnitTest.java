@@ -3,9 +3,7 @@ package com.qa.todo_lists.controller;
 import com.qa.todo_lists.data.dto.TaskListDTO;
 import com.qa.todo_lists.data.dto.ToDoTaskDTO;
 import com.qa.todo_lists.data.model.TaskList;
-import com.qa.todo_lists.data.model.ToDoTask;
 import com.qa.todo_lists.service.TaskListService;
-import com.qa.todo_lists.service.ToDoTaskService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +34,6 @@ public class TaskListControllerUnitTest {
     private TaskList taskList;
     private TaskListDTO taskListDTO;
 
-    private List<ToDoTask> dummyList;
     private List<ToDoTaskDTO> dummyDTOList;
 
     @BeforeEach

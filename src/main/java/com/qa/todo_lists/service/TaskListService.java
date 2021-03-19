@@ -4,7 +4,6 @@ import com.qa.todo_lists.data.dto.TaskListDTO;
 import com.qa.todo_lists.data.model.TaskList;
 import com.qa.todo_lists.data.repos.TaskListRepo;
 import com.qa.todo_lists.exceptions.TaskListNotFoundException;
-import com.qa.todo_lists.exceptions.TaskNotFoundException;
 import com.qa.todo_lists.mappers.TaskListMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
