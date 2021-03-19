@@ -19,7 +19,7 @@ public class ToDoTask {
     @NotNull
     private String description;
 
-    @Column(name = "due_date", nullable = true)
+    @Column(name = "due_date")
     private Date dueDate;
 
     @NotNull
@@ -92,7 +92,7 @@ public class ToDoTask {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ToDoTask)) return false;
 
         ToDoTask toDoTask = (ToDoTask) o;
 
