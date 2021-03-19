@@ -3,6 +3,8 @@ package com.qa.todo_lists.controller;
 import com.qa.todo_lists.data.dto.TaskListDTO;
 import com.qa.todo_lists.data.dto.ToDoTaskDTO;
 import com.qa.todo_lists.data.model.TaskList;
+import com.qa.todo_lists.exceptions.TaskListNotFoundException;
+import com.qa.todo_lists.exceptions.TaskNotFoundException;
 import com.qa.todo_lists.service.TaskListService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @WebMvcTest(TaskListController.class)
@@ -88,6 +91,26 @@ public class TaskListControllerUnitTest {
         assertThat(expectedReturn).isEqualTo(controller.delete(1L));
 
         verify(service, times(1)).delete(1L);
+    }
+
+    @Test
+    public void deleteListFailedTest() {
+        when(service.delete(1L)).thenReturn(false);
+
+        ResponseEntity<String> expectedReturn = new ResponseEntity<>("Couldn't delete task list 1, List was found but not removed.", HttpStatus.INTERNAL_SERVER_ERROR);
+
+        assertThat(expectedReturn).isEqualTo(controller.delete(1L));
+
+        verify(service, times(1)).delete(1L);
+    }
+
+    @Test
+    public void deleteListNotInRepoTest() {
+        when(service.delete(9999L)).thenThrow(new TaskListNotFoundException());
+
+        assertThrows(TaskListNotFoundException.class, () -> controller.delete(9999L));
+
+        verify(service, times(1)).delete(9999L);
     }
 
     @Test

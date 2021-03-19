@@ -2,6 +2,7 @@ package com.qa.todo_lists.controller;
 
 import com.qa.todo_lists.data.dto.ToDoTaskDTO;
 import com.qa.todo_lists.data.model.ToDoTask;
+import com.qa.todo_lists.exceptions.TaskNotFoundException;
 import com.qa.todo_lists.service.ToDoTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -50,7 +51,7 @@ public class ToDoTaskController {
     }
 
     @DeleteMapping
-    public ResponseEntity<String> delete(@RequestParam Long id) {
+    public ResponseEntity<String> delete(@RequestParam Long id) throws TaskNotFoundException {
         if (taskService.delete(id)) {
             return new ResponseEntity<>("Task " + id + " deleted successfully.", HttpStatus.OK);
         }

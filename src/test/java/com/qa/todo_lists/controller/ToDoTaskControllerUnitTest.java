@@ -3,7 +3,9 @@ package com.qa.todo_lists.controller;
 import com.qa.todo_lists.data.dto.ToDoTaskDTO;
 import com.qa.todo_lists.data.model.TaskList;
 import com.qa.todo_lists.data.model.ToDoTask;
+import com.qa.todo_lists.exceptions.TaskNotFoundException;
 import com.qa.todo_lists.service.ToDoTaskService;
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @WebMvcTest(ToDoTaskController.class)
@@ -87,6 +91,26 @@ public class ToDoTaskControllerUnitTest {
         assertThat(expectedReturn).isEqualTo(controller.delete(1L));
 
         verify(service, times(1)).delete(1L);
+    }
+
+    @Test
+    public void deleteTaskFailedTest() {
+        when(service.delete(1L)).thenReturn(false);
+
+        ResponseEntity<String> expectedReturn = new ResponseEntity<>("Couldn't delete task 1, task was found but not removed.", HttpStatus.INTERNAL_SERVER_ERROR);
+
+        assertThat(expectedReturn).isEqualTo(controller.delete(1L));
+
+        verify(service, times(1)).delete(1L);
+    }
+
+    @Test
+    public void deleteTaskNotInRepoTest() {
+        when(service.delete(9999L)).thenThrow(new TaskNotFoundException());
+
+        assertThrows(TaskNotFoundException.class, () -> controller.delete(9999L));
+
+        verify(service, times(1)).delete(9999L);
     }
 
     @Test
