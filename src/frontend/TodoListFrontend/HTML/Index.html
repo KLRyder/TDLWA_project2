@@ -13,100 +13,10 @@
   <h1 class=text-center><u>My Tasks</u></h1>
   <hr class="my-3">
   <div class="row" id="listContainer" style="position: relative; height: 0">
-    <div class="col-sm-6 col-lg-4 mb-4 msnry-Card" id="_listIdExample" style="position: absolute; left: 0; top: 0;">
-      <div class="card p-3">
-        <div class="card-body">
-          <div class="card-title">
-            <div class="row">
-              <div class="col-8"><h5>_listNameExample</h5></div>
-              <div class="col-2">
-                <input type="image" src="../img/edit_draft.svg" class="w-100" alt="edit"
-                       data-bs-toggle="modal"
-                       data-bs-target="#updateTaskListModal" data-bs-listID="_listIdExample"
-                       data-bs-listName="_listNameExample">
-              </div>
-              <div class="col-2">
-                <input type="image" src="../img/delete.svg" class="w-100" alt="delete"
-                       data-bs-listID="_listIdExample">
-              </div>
-            </div>
-          </div>
-          <div class="accordion accordion-flush" id="taskListAccordion_listIdExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="heading_taskIdExample">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseTask_taskIdExample" aria-expanded="false"
-                        aria-controls="collapseTask_taskIdExample">
-                  Example task #1
-                </button>
-              </h2>
-              <div id="collapseTask_taskIdExample" class="accordion-collapse collapse"
-                   aria-labelledby="heading_taskIdExample"
-                   data-bs-parent="#taskListAccordion_listIdExample">
-                <div class="accordion-body">
-                  <div class="row text-center">
-                    <div class="col">
-                      <input type="image" src="../img/edit_draft.svg" alt="edit" data-bs-toggle="modal"
-                             id="edit_taskIdExample" data-bs-target="#updateTaskModal" data-bs-taskID="_taskIdExample"
-                             data-bs-taskName="_taskNameExample" data-bs-taskDate="">
-                    </div>
-                    <div class="col">
-                      <input type="image" src="../img/delete.svg" alt="delete"
-                             id="delete_taskIdExample">
-                    </div>
-                    <div class="col">
-                      <input type="image" src="../img/confirm.svg" alt="check"
-                             id="toggle_taskIdExample" onclick="toggleDone('_taskIdExample')">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwoExample">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseTaskTwoExample" aria-expanded="false"
-                        aria-controls="collapseTaskTwoExample">
-                  Example task #2&nbsp<span>Due: 01/01/2000</span>
-                </button>
-              </h2>
-              <div id="collapseTaskTwoExample" class="accordion-collapse collapse"
-                   aria-labelledby="headingTwoExample"
-                   data-bs-parent="#taskListAccordion_listIdExample">
-                <div class="accordion-body">
-                  <div class="row text-center">
-                    <div class="col">
-                      <input type="image" src="../img/edit_draft.svg" alt="edit"
-                             data-bs-toggle="modal" id="edit_taskIdExample"
-                             data-bs-target="#updateTaskModal" data-bs-taskID="_taskIdExample"
-                             data-bs-taskName="_taskNameExample"
-                             data-bs-taskDate="2000-01-01">
-                    </div>
-                    <div class="col">
-                      <input type="image" src="../img/delete.svg" alt="delete"
-                             id="deleteTwoExample">
-                    </div>
-                    <div class="col">
-                      <input type="image" src="../img/confirm.svg" alt="check"
-                             id="toggleTwoExample" onclick="toggleDone('TwoExample')">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="container align-content-center text-center">
-            <input type="image" src="../img/new.svg" data-bs-toggle="modal"
-                   data-bs-target="#createTaskModal"
-                   data-bs-listID="_listIdExample" data-bs-listName="_listNameExample" alt="New Task">
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   <div class="text-center align-content-center container">
     <input type="image" src="../img/new.svg" data-bs-toggle="modal" data-bs-target="#createTaskListModal"
-           alt="New list">
+           alt="New list" id="create-list-button">
   </div>
   <!--  html templates-->
   <template id="taskListTemplate">
@@ -197,7 +107,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitNewTask()">Create Task
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitNewTask()" id="create-task-submit">Create Task
         </button>
       </div>
     </div>
@@ -228,7 +138,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="updateTask()">Update Task
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="updateTask()" id="update-task-submit">Update Task
         </button>
       </div>
     </div>
@@ -254,7 +164,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitNewList()">Create
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitNewList()" id="create-list-submit">Create
           List
         </button>
       </div>
@@ -282,7 +192,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="updateList()">Update List
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="updateList()" id="update-list-submit">Update List
         </button>
       </div>
     </div>

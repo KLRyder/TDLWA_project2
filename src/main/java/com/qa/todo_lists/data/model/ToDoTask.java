@@ -14,7 +14,6 @@ public class ToDoTask {
 
     @ManyToOne(targetEntity = TaskList.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "task_list")
-    @NotNull
     private TaskList taskList;
 
     @NotNull
@@ -26,7 +25,7 @@ public class ToDoTask {
     @NotNull
     private Boolean complete;
 
-    public ToDoTask(Long id, @NotNull TaskList taskList, @NotNull String description, Date dueDate, @NotNull Boolean complete) {
+    public ToDoTask(Long id, TaskList taskList, @NotNull String description, Date dueDate, @NotNull Boolean complete) {
         this.id = id;
         this.taskList = taskList;
         this.description = description;
@@ -34,14 +33,14 @@ public class ToDoTask {
         this.complete = complete;
     }
 
-    public ToDoTask(@NotNull TaskList taskList, @NotNull String description, Date dueDate, @NotNull Boolean complete) {
+    public ToDoTask(TaskList taskList, @NotNull String description, Date dueDate, @NotNull Boolean complete) {
         this.taskList = taskList;
         this.description = description;
         this.dueDate = dueDate;
         this.complete = complete;
     }
 
-    public ToDoTask(@NotNull TaskList taskList, @NotNull String description, @NotNull Boolean complete) {
+    public ToDoTask(TaskList taskList, @NotNull String description, @NotNull Boolean complete) {
         this.taskList = taskList;
         this.description = description;
         this.complete = complete;
@@ -98,7 +97,7 @@ public class ToDoTask {
 
         ToDoTask toDoTask = (ToDoTask) o;
 
-        if (!taskList.equals(toDoTask.taskList)) return false;
+        if (!Objects.equals(taskList,toDoTask.taskList)) return false;
         if (!description.equals(toDoTask.description)) return false;
         if (!Objects.equals(dueDate, toDoTask.dueDate)) return false;
         return complete.equals(toDoTask.complete);
