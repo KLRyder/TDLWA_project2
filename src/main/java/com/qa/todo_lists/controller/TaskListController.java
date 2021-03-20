@@ -54,7 +54,7 @@ public class TaskListController {
         if (taskListService.delete(id)) {
             return new ResponseEntity<>("Task list " + id + " deleted successfully.", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Couldn't delete task list" + id +
+        return new ResponseEntity<>("Couldn't delete task list " + id +
                 ", List was found but not removed.", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

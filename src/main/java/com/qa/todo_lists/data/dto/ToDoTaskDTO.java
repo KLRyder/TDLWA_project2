@@ -1,6 +1,7 @@
 package com.qa.todo_lists.data.dto;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class ToDoTaskDTO {
     private Long id;
@@ -64,15 +65,16 @@ public class ToDoTaskDTO {
 
     @Override
     public boolean equals(Object o) {
+        if (o == null)return false;
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ToDoTaskDTO)) return false;
 
         ToDoTaskDTO that = (ToDoTaskDTO) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (dueDate != null ? !dueDate.equals(that.dueDate) : that.dueDate != null) return false;
-        return complete != null ? complete.equals(that.complete) : that.complete == null;
+        if (!Objects.equals(id, that.id)) return false;
+        if (!Objects.equals(description, that.description)) return false;
+        if (!Objects.equals(dueDate, that.dueDate)) return false;
+        return Objects.equals(complete, that.complete);
     }
 
     @Override

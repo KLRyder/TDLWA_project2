@@ -19,7 +19,7 @@ public class ToDoTask {
     @NotNull
     private String description;
 
-    @Column(name = "due_date", nullable = true)
+    @Column(name = "due_date")
     private Date dueDate;
 
     @NotNull
@@ -91,13 +91,13 @@ public class ToDoTask {
 
     @Override
     public boolean equals(Object o) {
+        if (o == null)return false;
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ToDoTask)) return false;
 
         ToDoTask toDoTask = (ToDoTask) o;
 
-        if (!Objects.equals(id, toDoTask.id)) return false;
-        if (!taskList.equals(toDoTask.taskList)) return false;
+        if (!Objects.equals(taskList,toDoTask.taskList)) return false;
         if (!description.equals(toDoTask.description)) return false;
         if (!Objects.equals(dueDate, toDoTask.dueDate)) return false;
         return complete.equals(toDoTask.complete);
@@ -105,8 +105,7 @@ public class ToDoTask {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + taskList.hashCode();
+        int result = taskList != null ? taskList.hashCode(): 0;
         result = 31 * result + description.hashCode();
         result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
         result = 31 * result + complete.hashCode();
