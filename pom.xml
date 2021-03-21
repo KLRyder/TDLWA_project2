@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.qa</groupId>
     <artifactId>todo_lists</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>war</packaging>
     <name>todo_lists</name>
     <description>TODO list webapp</description>
