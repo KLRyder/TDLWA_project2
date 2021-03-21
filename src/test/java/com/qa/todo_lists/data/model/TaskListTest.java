@@ -4,9 +4,9 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 
 
-public class TaskListTest {
+class TaskListTest {
     @Test
-    public void testEquals() {
+    void testEquals() {
         ToDoTask prefabTask1 = new ToDoTask(new TaskList(),"one",true);
         ToDoTask prefabTask2 = new ToDoTask(new TaskList(),"two",true);
         EqualsVerifier.forClass(TaskList.class).withPrefabValues(ToDoTask.class, prefabTask1, prefabTask2)

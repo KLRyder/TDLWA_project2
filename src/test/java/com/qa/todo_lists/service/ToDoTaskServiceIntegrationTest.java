@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Transactional
 @Sql(scripts = {"classpath:test-schema.sql", "classpath:test-data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-public class ToDoTaskServiceIntegrationTest {
+class ToDoTaskServiceIntegrationTest {
     @Autowired
     private ToDoTaskService service;
 
@@ -41,7 +41,7 @@ public class ToDoTaskServiceIntegrationTest {
     }
 
     @Test
-    public void create() {
+    void create() {
         Date dummyDate = new Date();
         ToDoTask newTask = new ToDoTask(testList, "newlist", dummyDate, true);
         ToDoTaskDTO expected = mapper.mapToDTO(newTask);
@@ -51,17 +51,17 @@ public class ToDoTaskServiceIntegrationTest {
     }
 
     @Test
-    public void readAll() {
+    void readAll() {
         assertEquals(List.of(testTaskDTO), service.readAll());
     }
 
     @Test
-    public void readOne() {
+    void readOne() {
         assertEquals(testTaskDTO, service.readById(1L));
     }
 
     @Test
-    public void update() {
+    void update() {
         ToDoTask updated = new ToDoTask(1L, testList, "updated", null, true);
         ToDoTaskDTO expectedTaskList = new ToDoTaskDTO(1L, "updated", null, true);
 
@@ -69,7 +69,7 @@ public class ToDoTaskServiceIntegrationTest {
     }
 
     @Test
-    public void delete() {
+    void delete() {
         assertTrue(service.delete(1L));
         assertThrows(TaskNotFoundException.class, () -> service.delete(99999L));
     }

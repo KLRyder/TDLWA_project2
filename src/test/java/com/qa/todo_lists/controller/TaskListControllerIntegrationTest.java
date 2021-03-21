@@ -26,7 +26,7 @@ import java.util.List;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Sql(scripts = {"classpath:test-schema.sql", "classpath:test-data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-public class TaskListControllerIntegrationTest {
+class TaskListControllerIntegrationTest {
 
     @Autowired
     private MockMvc mvc;
@@ -51,7 +51,7 @@ public class TaskListControllerIntegrationTest {
     }
 
     @Test
-    public void createTest() throws Exception {
+    void createTest() throws Exception {
         TaskList toSave = new TaskList("toSave");
         TaskListDTO expectedTaskList = new TaskListDTO(2L,"toSave", new ArrayList<>());
 
@@ -77,7 +77,7 @@ public class TaskListControllerIntegrationTest {
     }
 
     @Test
-    public void getAllTest() throws Exception {
+    void getAllTest() throws Exception {
         MockHttpServletRequestBuilder mockRequest =
                 MockMvcRequestBuilders.request(HttpMethod.GET, "/lists");
         mockRequest.accept(MediaType.APPLICATION_JSON);
@@ -92,7 +92,7 @@ public class TaskListControllerIntegrationTest {
     }
 
     @Test
-    public void getOneTest() throws Exception {
+    void getOneTest() throws Exception {
         MockHttpServletRequestBuilder mockRequest =
                 MockMvcRequestBuilders.request(HttpMethod.GET, "/lists?id=1");
         mockRequest.accept(MediaType.APPLICATION_JSON);
@@ -107,7 +107,7 @@ public class TaskListControllerIntegrationTest {
     }
 
     @Test
-    public void updateTest() throws Exception {
+    void updateTest() throws Exception {
         TaskList updated = new TaskList(1L,"updated");
         TaskListDTO expectedTaskList = new TaskListDTO(1L,"updated", taskDTOs);
 
@@ -130,7 +130,7 @@ public class TaskListControllerIntegrationTest {
     }
 
     @Test
-    public void deleteTest() throws Exception{
+    void deleteTest() throws Exception{
         MockHttpServletRequestBuilder mockRequest =
                 MockMvcRequestBuilders.request(HttpMethod.DELETE, "/lists?id=1");
         mockRequest.accept(MediaType.APPLICATION_JSON);

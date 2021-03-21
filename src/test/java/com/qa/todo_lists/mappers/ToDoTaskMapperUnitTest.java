@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ToDoTaskMapperUnitTest {
+class ToDoTaskMapperUnitTest {
     public ToDoTask task;
     public ToDoTaskDTO taskDTO;
     public ToDoTaskMapper mapper;
@@ -26,12 +26,12 @@ public class ToDoTaskMapperUnitTest {
     }
 
     @Test
-    public void testMapToDTO(){
+    void testMapToDTO(){
         assertEquals(taskDTO, mapper.mapToDTO(task));
     }
 
     @Test
-    public void testMapToDTOList(){
+    void testMapToDTOList(){
         assertEquals(List.of(taskDTO), mapper.mapToDTO(List.of(task)));
     }
 }

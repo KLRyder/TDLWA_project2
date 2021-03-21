@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class})
-public class TaskListServiceUnitTest {
+class TaskListServiceUnitTest {
     @InjectMocks
     private TaskListService service;
 
@@ -48,7 +48,7 @@ public class TaskListServiceUnitTest {
     }
 
     @Test
-    public void createTest() {
+    void createTest() {
         when(repo.save(list)).thenReturn(list);
         when(mapper.mapToDTO(any(TaskList.class))).thenReturn(listDTO);
 
@@ -59,7 +59,7 @@ public class TaskListServiceUnitTest {
     }
 
     @Test
-    public void deleteTest() {
+    void deleteTest() {
         when(repo.findById(any(Long.class))).thenReturn(Optional.of(list)).thenReturn(Optional.empty());
 
         assertTrue(service.delete(1L));
@@ -69,7 +69,7 @@ public class TaskListServiceUnitTest {
     }
 
     @Test
-    public void updateTest() {
+    void updateTest() {
         TaskList oldList = new TaskList(1L, "old");
 
         when(repo.findById(any(Long.class))).thenReturn(Optional.of(oldList));
@@ -83,7 +83,7 @@ public class TaskListServiceUnitTest {
     }
 
     @Test
-    public void readOneTest() {
+    void readOneTest() {
         when(repo.findById(any(Long.class))).thenReturn(Optional.of(list));
         when(mapper.mapToDTO(any(TaskList.class))).thenReturn(listDTO);
 
@@ -94,7 +94,7 @@ public class TaskListServiceUnitTest {
     }
 
     @Test
-    public void readAllTest() {
+    void readAllTest() {
         when(repo.findAll()).thenReturn(lists);
         when(mapper.mapToDTO(lists)).thenReturn(dtos);
 

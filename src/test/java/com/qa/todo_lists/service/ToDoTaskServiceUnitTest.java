@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class})
-public class ToDoTaskServiceUnitTest {
+class ToDoTaskServiceUnitTest {
     @InjectMocks
     private ToDoTaskService service;
 
@@ -37,7 +37,7 @@ public class ToDoTaskServiceUnitTest {
     private ToDoTaskDTO dto;
 
     @BeforeEach
-    public void setupForTest() {
+    void setupForTest() {
         Date dummyDate = new Date();
         TaskList dummyList = new TaskList();
         task = new ToDoTask(1L, dummyList, "taskDesc", dummyDate, false);
@@ -48,7 +48,7 @@ public class ToDoTaskServiceUnitTest {
     }
 
     @Test
-    public void createTest() {
+    void createTest() {
         when(repo.save(task)).thenReturn(task);
         when(mapper.mapToDTO(any(ToDoTask.class))).thenReturn(dto);
 
@@ -59,7 +59,7 @@ public class ToDoTaskServiceUnitTest {
     }
 
     @Test
-    public void deleteTest() {
+    void deleteTest() {
         when(repo.findById(any(Long.class))).thenReturn(Optional.of(task)).thenReturn(Optional.empty());
 
         assertTrue(service.delete(1L));
@@ -69,7 +69,7 @@ public class ToDoTaskServiceUnitTest {
     }
 
     @Test
-    public void updateTest() {
+    void updateTest() {
         ToDoTask oldTask = new ToDoTask(1L, new TaskList(), "old", new Date(), true);
 
         when(repo.findById(any(Long.class))).thenReturn(Optional.of(oldTask));
@@ -83,7 +83,7 @@ public class ToDoTaskServiceUnitTest {
     }
 
     @Test
-    public void readOneTest() {
+    void readOneTest() {
         when(repo.findById(any(Long.class))).thenReturn(Optional.of(task));
         when(mapper.mapToDTO(any(ToDoTask.class))).thenReturn(dto);
 
@@ -94,7 +94,7 @@ public class ToDoTaskServiceUnitTest {
     }
 
     @Test
-    public void readAllTest() {
+    void readAllTest() {
         when(repo.findAll()).thenReturn(tasks);
         when(mapper.mapToDTO(tasks)).thenReturn(dtos);
 
