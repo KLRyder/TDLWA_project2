@@ -1,0 +1,16 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+todo_lists,com.qa.todo_lists.service,TaskListService,0,79,0,2,0,15,0,7,0,6
+todo_lists,com.qa.todo_lists.service,ToDoTaskService,0,87,0,2,0,17,0,7,0,6
+todo_lists,com.qa.todo_lists.data.dto,TaskListDTO,20,97,0,14,10,20,4,14,4,7
+todo_lists,com.qa.todo_lists.data.dto,ToDoTaskDTO,33,131,0,20,15,27,5,19,5,9
+todo_lists,com.qa.todo_lists.data.model,ToDoTask,0,170,0,16,0,48,0,24,0,16
+todo_lists,com.qa.todo_lists.data.model,TaskList,8,113,0,12,1,28,1,17,1,11
+todo_lists,com.qa.todo_lists.mappers,ToDoTaskMapper,0,38,0,2,0,7,0,4,0,3
+todo_lists,com.qa.todo_lists.mappers,TaskListMapper,0,51,0,2,0,12,0,5,0,4
+todo_lists,com.qa.todo_lists.exceptions,TaskNotFoundException,4,4,0,0,2,2,1,1,1,1
+todo_lists,com.qa.todo_lists.exceptions,ControllerAdviceExceptionHandler,14,3,0,0,2,1,2,1,2,1
+todo_lists,com.qa.todo_lists.exceptions,TaskListNotFoundException,4,4,0,0,2,2,1,1,1,1
+todo_lists,com.qa.todo_lists,TodoListsApplication,5,3,0,0,2,1,1,1,1,1
+todo_lists,com.qa.todo_lists,ServletInitializer,12,0,0,0,2,0,2,0,2,0
+todo_lists,com.qa.todo_lists.controller,TaskListController,0,83,0,2,0,15,0,8,0,7
+todo_lists,com.qa.todo_lists.controller,ToDoTaskController,0,83,0,2,0,15,0,8,0,7

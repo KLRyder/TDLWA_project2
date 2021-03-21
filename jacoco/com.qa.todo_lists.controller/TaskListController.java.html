@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskListController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">todo_lists</a> &gt; <a href="index.source.html" class="el_package">com.qa.todo_lists.controller</a> &gt; <span class="el_source">TaskListController.java</span></div><h1>TaskListController.java</h1><pre class="source lang-java linenums">package com.qa.todo_lists.controller;
+
+import com.qa.todo_lists.data.dto.TaskListDTO;
+import com.qa.todo_lists.data.model.TaskList;
+import com.qa.todo_lists.service.TaskListService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+
+@CrossOrigin//(origins = &quot;*&quot;,allowedHeaders = &quot;*&quot;,methods = {RequestMethod.DELETE, RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH})
+@RestController
+@RequestMapping(path = &quot;/lists&quot;)
+public class TaskListController {
+    private TaskListService taskListService;
+
+    @Autowired
+<span class="fc" id="L23">    public TaskListController(TaskListService taskListService) {</span>
+<span class="fc" id="L24">        this.taskListService = taskListService;</span>
+<span class="fc" id="L25">    }</span>
+
+    @PostMapping
+    public ResponseEntity&lt;TaskListDTO&gt; post(@RequestBody @Valid TaskList taskList) {
+<span class="fc" id="L29">        TaskListDTO newTaskList = taskListService.create(taskList);</span>
+
+<span class="fc" id="L31">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L32">        headers.add(&quot;Location&quot;, newTaskList.getId().toString());</span>
+
+<span class="fc" id="L34">        return new ResponseEntity&lt;&gt;(newTaskList, headers, HttpStatus.CREATED);</span>
+    }
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;TaskListDTO&gt;&gt; get(@RequestParam Optional&lt;Long&gt; id) {
+<span class="fc" id="L39">        List&lt;TaskListDTO&gt; tasks = id.map(aLong -&gt; List.of(taskListService.readById(aLong)))</span>
+<span class="fc" id="L40">                .orElseGet(() -&gt; taskListService.readAll());</span>
+
+<span class="fc" id="L42">        return new ResponseEntity&lt;&gt;(tasks, HttpStatus.OK);</span>
+    }
+
+    @PutMapping
+    public ResponseEntity&lt;TaskListDTO&gt; update(@RequestBody @Valid TaskList taskList) {
+<span class="fc" id="L47">        TaskListDTO taskListDTO = taskListService.update(taskList);</span>
+
+<span class="fc" id="L49">        return new ResponseEntity&lt;&gt;(taskListDTO, HttpStatus.OK);</span>
+    }
+
+    @DeleteMapping
+    public ResponseEntity&lt;String&gt; delete(@RequestParam Long id) {
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (taskListService.delete(id)) {</span>
+<span class="fc" id="L55">            return new ResponseEntity&lt;&gt;(&quot;Task list &quot; + id + &quot; deleted successfully.&quot;, HttpStatus.OK);</span>
+        }
+<span class="fc" id="L57">        return new ResponseEntity&lt;&gt;(&quot;Couldn't delete task list &quot; + id +</span>
+                &quot;, List was found but not removed.&quot;, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

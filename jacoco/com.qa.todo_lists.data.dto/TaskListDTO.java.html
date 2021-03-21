@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskListDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">todo_lists</a> &gt; <a href="index.source.html" class="el_package">com.qa.todo_lists.data.dto</a> &gt; <span class="el_source">TaskListDTO.java</span></div><h1>TaskListDTO.java</h1><pre class="source lang-java linenums">package com.qa.todo_lists.data.dto;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Objects;
+
+public class TaskListDTO {
+    private Long id;
+    private String name;
+    private List&lt;ToDoTaskDTO&gt; tasks;
+
+<span class="fc" id="L12">    public TaskListDTO(Long id, @NotNull String name, List&lt;ToDoTaskDTO&gt; tasks) {</span>
+<span class="fc" id="L13">        this.id = id;</span>
+<span class="fc" id="L14">        this.name = name;</span>
+<span class="fc" id="L15">        this.tasks = tasks;</span>
+<span class="fc" id="L16">    }</span>
+
+<span class="nc" id="L18">    public TaskListDTO(@NotNull String name, List&lt;ToDoTaskDTO&gt; tasks) {</span>
+<span class="nc" id="L19">        this.name = name;</span>
+<span class="nc" id="L20">        this.tasks = tasks;</span>
+<span class="nc" id="L21">    }</span>
+
+<span class="nc" id="L23">    public TaskListDTO() {</span>
+<span class="nc" id="L24">    }</span>
+
+    public void setId(Long id) {
+<span class="fc" id="L27">        this.id = id;</span>
+<span class="fc" id="L28">    }</span>
+
+    public Long getId() {
+<span class="fc" id="L31">        return id;</span>
+    }
+
+    public String getName() {
+<span class="fc" id="L35">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L39">        this.name = name;</span>
+<span class="nc" id="L40">    }</span>
+
+    public List&lt;ToDoTaskDTO&gt; getTasks() {
+<span class="fc" id="L43">        return tasks;</span>
+    }
+
+    public void setTasks(List&lt;ToDoTaskDTO&gt; tasks) {
+<span class="nc" id="L47">        this.tasks = tasks;</span>
+<span class="nc" id="L48">    }</span>
+
+    @Override
+    public boolean equals(Object o) {
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (!(o instanceof TaskListDTO)) return false;</span>
+
+<span class="fc" id="L55">        TaskListDTO taskList = (TaskListDTO) o;</span>
+
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (!Objects.equals(id, taskList.id)) return false;</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (!Objects.equals(name, taskList.name)) return false;</span>
+<span class="fc" id="L59">        return Objects.equals(tasks, taskList.tasks);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        int result = id != null ? id.hashCode() : 0;</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        result = 31 * result + (name != null ? name.hashCode() : 0);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        result = 31 * result + (tasks != null ? tasks.hashCode() : 0);</span>
+<span class="fc" id="L67">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

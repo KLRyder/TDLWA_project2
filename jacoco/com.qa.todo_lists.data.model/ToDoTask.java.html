@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ToDoTask.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">todo_lists</a> &gt; <a href="index.source.html" class="el_package">com.qa.todo_lists.data.model</a> &gt; <span class="el_source">ToDoTask.java</span></div><h1>ToDoTask.java</h1><pre class="source lang-java linenums">package com.qa.todo_lists.data.model;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+import java.util.Objects;
+
+@Entity
+public class ToDoTask {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;task_id&quot;)
+    private Long id;
+
+    @ManyToOne(targetEntity = TaskList.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;task_list&quot;)
+    private TaskList taskList;
+
+    @NotNull
+    private String description;
+
+    @Column(name = &quot;due_date&quot;)
+    private Date dueDate;
+
+    @NotNull
+    private Boolean complete;
+
+<span class="fc" id="L28">    public ToDoTask(Long id, TaskList taskList, @NotNull String description, Date dueDate, @NotNull Boolean complete) {</span>
+<span class="fc" id="L29">        this.id = id;</span>
+<span class="fc" id="L30">        this.taskList = taskList;</span>
+<span class="fc" id="L31">        this.description = description;</span>
+<span class="fc" id="L32">        this.dueDate = dueDate;</span>
+<span class="fc" id="L33">        this.complete = complete;</span>
+<span class="fc" id="L34">    }</span>
+
+<span class="fc" id="L36">    public ToDoTask(TaskList taskList, @NotNull String description, Date dueDate, @NotNull Boolean complete) {</span>
+<span class="fc" id="L37">        this.taskList = taskList;</span>
+<span class="fc" id="L38">        this.description = description;</span>
+<span class="fc" id="L39">        this.dueDate = dueDate;</span>
+<span class="fc" id="L40">        this.complete = complete;</span>
+<span class="fc" id="L41">    }</span>
+
+<span class="fc" id="L43">    public ToDoTask(TaskList taskList, @NotNull String description, @NotNull Boolean complete) {</span>
+<span class="fc" id="L44">        this.taskList = taskList;</span>
+<span class="fc" id="L45">        this.description = description;</span>
+<span class="fc" id="L46">        this.complete = complete;</span>
+<span class="fc" id="L47">    }</span>
+
+<span class="fc" id="L49">    public ToDoTask() {</span>
+<span class="fc" id="L50">    }</span>
+
+    public void setId(Long id) {
+<span class="fc" id="L53">        this.id = id;</span>
+<span class="fc" id="L54">    }</span>
+
+    public Long getId() {
+<span class="fc" id="L57">        return id;</span>
+    }
+
+    public TaskList getTaskList() {
+<span class="fc" id="L61">        return taskList;</span>
+    }
+
+    public void setTaskList(TaskList taskList) {
+<span class="fc" id="L65">        this.taskList = taskList;</span>
+<span class="fc" id="L66">    }</span>
+
+    public String getDescription() {
+<span class="fc" id="L69">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="fc" id="L73">        this.description = description;</span>
+<span class="fc" id="L74">    }</span>
+
+    public Date getDueDate() {
+<span class="fc" id="L77">        return dueDate;</span>
+    }
+
+    public void setDueDate(Date dueDate) {
+<span class="fc" id="L81">        this.dueDate = dueDate;</span>
+<span class="fc" id="L82">    }</span>
+
+    public Boolean getComplete() {
+<span class="fc" id="L85">        return complete;</span>
+    }
+
+    public void setComplete(Boolean complete) {
+<span class="fc" id="L89">        this.complete = complete;</span>
+<span class="fc" id="L90">    }</span>
+
+    @Override
+    public boolean equals(Object o) {
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        if (o == null)return false;</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        if (!(o instanceof ToDoTask)) return false;</span>
+
+<span class="fc" id="L98">        ToDoTask toDoTask = (ToDoTask) o;</span>
+
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (!Objects.equals(taskList,toDoTask.taskList)) return false;</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (!description.equals(toDoTask.description)) return false;</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (!Objects.equals(dueDate, toDoTask.dueDate)) return false;</span>
+<span class="fc" id="L103">        return complete.equals(toDoTask.complete);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        int result = taskList != null ? taskList.hashCode(): 0;</span>
+<span class="fc" id="L109">        result = 31 * result + description.hashCode();</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);</span>
+<span class="fc" id="L111">        result = 31 * result + complete.hashCode();</span>
+<span class="fc" id="L112">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
