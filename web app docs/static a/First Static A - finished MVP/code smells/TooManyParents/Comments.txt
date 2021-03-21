@@ -1,0 +1,1 @@
+While I would normally agree that too many parents could get way too complex, as I am using just simple Exceptions here I dont think a change is justified

@@ -1,0 +1,1 @@
+The .equals and hashcode functions are the same between the entities and their DTO's, but this is because they have the same names for their veriables. I could "fix" this by changing the variable names but that would be a little silly.

@@ -1,0 +1,1 @@
+No change, the whole point of this binding is to allow full creation/updating to database, using a DTO would simply make more complexity without making this any more secure.

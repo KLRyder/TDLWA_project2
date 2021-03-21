@@ -1,0 +1,1 @@
+All 74 are the same issue, not sure that it actually is but fixed just so that SonarQube would show 0 smells
