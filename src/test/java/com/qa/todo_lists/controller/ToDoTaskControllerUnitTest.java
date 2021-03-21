@@ -5,7 +5,6 @@ import com.qa.todo_lists.data.model.TaskList;
 import com.qa.todo_lists.data.model.ToDoTask;
 import com.qa.todo_lists.exceptions.TaskNotFoundException;
 import com.qa.todo_lists.service.ToDoTaskService;
-import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +17,11 @@ import org.springframework.http.ResponseEntity;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @WebMvcTest(ToDoTaskController.class)
-public class ToDoTaskControllerUnitTest {
+class ToDoTaskControllerUnitTest {
 
     @Autowired
     private ToDoTaskController controller;
@@ -50,7 +48,7 @@ public class ToDoTaskControllerUnitTest {
     }
 
     @Test
-    public void getAllTasksTest() {
+    void getAllTasksTest() {
         when(service.readAll()).thenReturn(taskDTOs);
         ResponseEntity<List<ToDoTaskDTO>> expectedReturn = new ResponseEntity<>(taskDTOs, HttpStatus.OK);
 
@@ -60,17 +58,15 @@ public class ToDoTaskControllerUnitTest {
     }
 
     @Test
-    public void getTaskByIdTest() {
+    void getTaskByIdTest() {
         when(service.readById(1L)).thenReturn(taskDTO);
         ResponseEntity<List<ToDoTaskDTO>> expectedReturn = new ResponseEntity<>(taskDTOs, HttpStatus.OK);
 
         assertThat(expectedReturn).isEqualTo(controller.get(Optional.of(1L)));
 
         verify(service, times(1)).readById(1L);
-    }
-
-    @Test
-    public void createTaskTest() {
+    }    @Test
+    void createTaskTest() {
         when(service.create(task)).thenReturn(taskDTO);
 
         HttpHeaders headers = new HttpHeaders();
@@ -83,7 +79,7 @@ public class ToDoTaskControllerUnitTest {
     }
 
     @Test
-    public void deleteTaskTest() {
+    void deleteTaskTest() {
         when(service.delete(1L)).thenReturn(true);
 
         ResponseEntity<String> expectedReturn = new ResponseEntity<>("Task 1 deleted successfully.", HttpStatus.OK);
@@ -94,7 +90,7 @@ public class ToDoTaskControllerUnitTest {
     }
 
     @Test
-    public void deleteTaskFailedTest() {
+    void deleteTaskFailedTest() {
         when(service.delete(1L)).thenReturn(false);
 
         ResponseEntity<String> expectedReturn = new ResponseEntity<>("Couldn't delete task 1, task was found but not removed.", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -105,7 +101,7 @@ public class ToDoTaskControllerUnitTest {
     }
 
     @Test
-    public void deleteTaskNotInRepoTest() {
+    void deleteTaskNotInRepoTest() {
         when(service.delete(9999L)).thenThrow(new TaskNotFoundException());
 
         assertThrows(TaskNotFoundException.class, () -> controller.delete(9999L));
@@ -114,7 +110,7 @@ public class ToDoTaskControllerUnitTest {
     }
 
     @Test
-    public void updateTaskTest() {
+    void updateTaskTest() {
         when(service.update(task)).thenReturn(taskDTO);
 
         ResponseEntity<ToDoTaskDTO> expectedReturn = new ResponseEntity<>(taskDTO, HttpStatus.OK);

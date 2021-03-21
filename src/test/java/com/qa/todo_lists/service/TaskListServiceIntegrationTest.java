@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Transactional
 @Sql(scripts = {"classpath:test-schema.sql", "classpath:test-data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-public class TaskListServiceIntegrationTest {
+class TaskListServiceIntegrationTest {
     @Autowired
     private TaskListService service;
 
@@ -45,7 +45,7 @@ public class TaskListServiceIntegrationTest {
     }
 
     @Test
-    public void create(){
+    void create(){
         TaskList newList = new TaskList("newlist");
         TaskListDTO expected = mapper.mapToDTO(newList);
         TaskListDTO returned = service.create(newList);
@@ -54,17 +54,17 @@ public class TaskListServiceIntegrationTest {
     }
 
     @Test
-    public void readAll(){
+    void readAll(){
         assertEquals(listDTOs, service.readAll());
     }
 
     @Test
-    public void readOne(){
+    void readOne(){
         assertEquals(testListDTO, service.readById(1L));
     }
 
     @Test
-    public void update(){
+    void update(){
         TaskList updated = new TaskList(1L,"updated");
         TaskListDTO expectedTaskList = new TaskListDTO(1L,"updated", List.of(testTaskDTO));
 
@@ -72,7 +72,7 @@ public class TaskListServiceIntegrationTest {
     }
 
     @Test
-    public void delete(){
+    void delete(){
         assertTrue(service.delete(1L));
         assertThrows(TaskListNotFoundException.class, () -> service.delete(99999L));
     }

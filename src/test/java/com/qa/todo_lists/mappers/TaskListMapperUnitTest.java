@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class})
-public class TaskListMapperUnitTest {
+class TaskListMapperUnitTest {
     @InjectMocks
     public TaskListMapper mapper;
 
@@ -39,7 +39,7 @@ public class TaskListMapperUnitTest {
     }
 
     @Test
-    public void testMapToDTO(){
+    void testMapToDTO(){
         when(taskMapper.mapToDTO(dummyTask)).thenReturn(dummyTaskDTO);
 
         assertEquals(listDTO, mapper.mapToDTO(list));
@@ -48,7 +48,7 @@ public class TaskListMapperUnitTest {
     }
 
     @Test
-    public void testMapToDTOList(){
+    void testMapToDTOList(){
         when(taskMapper.mapToDTO(dummyTask)).thenReturn(dummyTaskDTO);
         assertEquals(List.of(listDTO), mapper.mapToDTO(List.of(list)));
         verify(taskMapper, times(1)).mapToDTO(dummyTask);

@@ -14,8 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static utils.Helper.findElement;
 import static utils.Helper.snapShot;
 
@@ -27,7 +26,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @Sql(scripts = {"classpath:test-schema.sql", "classpath:test-data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-public class AcceptanceTests {
+class AcceptanceTests {
     private static final String webpageURL = "http://localhost:63342/todo_lists/src/frontend/TodoListFrontend/HTML/Index.html";
     private static WebDriver driver;
     private static ExtentReports extent;
@@ -53,7 +52,7 @@ public class AcceptanceTests {
     }
 
     @Test
-    public void pageLoadsTest() throws Exception {
+    void pageLoadsTest() throws Exception {
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.get(webpageURL);
 
@@ -63,11 +62,11 @@ public class AcceptanceTests {
             snapShot(driver, "src/test/resources/reports/PageLoadFail.png");
             test.log(LogStatus.FAIL, test.addScreenCapture("src/test/resources/reports/PageLoadFail.png") + "Test Failed, pageLoadsTest");
         }
-        assertEquals(driver.getTitle(), "TODO Lists");
+        assertEquals("TODO Lists", driver.getTitle());
     }
 
     @Test
-    public void createListTest() throws Exception {
+    void createListTest() throws Exception {
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.get(webpageURL);
 
@@ -96,7 +95,7 @@ public class AcceptanceTests {
     }
 
     @Test
-    public void deleteListTest() throws Exception {
+    void deleteListTest() throws Exception {
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.get(webpageURL);
 
@@ -120,7 +119,7 @@ public class AcceptanceTests {
     }
 
     @Test
-    public void deleteTaskTest() throws Exception {
+    void deleteTaskTest() throws Exception {
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.get(webpageURL);
 
@@ -146,7 +145,7 @@ public class AcceptanceTests {
     }
 
     @Test
-    public void createTaskTest() throws Exception {
+    void createTaskTest() throws Exception {
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.get(webpageURL);
 
@@ -177,7 +176,7 @@ public class AcceptanceTests {
     }
 
     @Test
-    public void updateListAndTasksTest() throws Exception {
+    void updateListAndTasksTest() throws Exception {
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.get(webpageURL);
 
@@ -220,7 +219,7 @@ public class AcceptanceTests {
     }
 
     @Test
-    public void toggleTaskDone() {
+    void toggleTaskDone() {
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.get(webpageURL);
 
@@ -232,12 +231,14 @@ public class AcceptanceTests {
         new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.attributeContains(By.id("task-1"), "data-isdone", "true"));
 
+        assertEquals("true",findElement(driver, By.id("task-1"), 3).getAttribute("data-isdone"));
         toggleButton.click();
 
         new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.attributeContains(By.id("task-1"), "data-isdone", "false"));
 
         test.log(LogStatus.PASS, "Success, updateListAndTasksTest");
+        assertEquals("false",findElement(driver, By.id("task-1"), 3).getAttribute("data-isdone"));
     }
 
     @AfterAll

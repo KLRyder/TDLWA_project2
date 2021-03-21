@@ -4,7 +4,6 @@ import com.qa.todo_lists.data.dto.TaskListDTO;
 import com.qa.todo_lists.data.dto.ToDoTaskDTO;
 import com.qa.todo_lists.data.model.TaskList;
 import com.qa.todo_lists.exceptions.TaskListNotFoundException;
-import com.qa.todo_lists.exceptions.TaskNotFoundException;
 import com.qa.todo_lists.service.TaskListService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @WebMvcTest(TaskListController.class)
-public class TaskListControllerUnitTest {
+class TaskListControllerUnitTest {
 
     @Autowired
     private TaskListController controller;
@@ -50,7 +49,7 @@ public class TaskListControllerUnitTest {
     }
 
     @Test
-    public void getAllListsTest() {
+    void getAllListsTest() {
         when(service.readAll()).thenReturn(taskListDTOs);
         ResponseEntity<List<TaskListDTO>> expectedReturn = new ResponseEntity<>(taskListDTOs, HttpStatus.OK);
 
@@ -60,7 +59,7 @@ public class TaskListControllerUnitTest {
     }
 
     @Test
-    public void getListByIdTest() {
+    void getListByIdTest() {
         when(service.readById(1L)).thenReturn(taskListDTO);
         ResponseEntity<List<TaskListDTO>> expectedReturn = new ResponseEntity<>(taskListDTOs, HttpStatus.OK);
 
@@ -70,7 +69,7 @@ public class TaskListControllerUnitTest {
     }
 
     @Test
-    public void createListTest() {
+    void createListTest() {
         when(service.create(taskList)).thenReturn(taskListDTO);
 
         HttpHeaders headers = new HttpHeaders();
@@ -83,7 +82,7 @@ public class TaskListControllerUnitTest {
     }
 
     @Test
-    public void deleteListTest() {
+    void deleteListTest() {
         when(service.delete(1L)).thenReturn(true);
 
         ResponseEntity<String> expectedReturn = new ResponseEntity<>("Task list 1 deleted successfully.", HttpStatus.OK);
@@ -94,7 +93,7 @@ public class TaskListControllerUnitTest {
     }
 
     @Test
-    public void deleteListFailedTest() {
+    void deleteListFailedTest() {
         when(service.delete(1L)).thenReturn(false);
 
         ResponseEntity<String> expectedReturn = new ResponseEntity<>("Couldn't delete task list 1, List was found but not removed.", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -105,7 +104,7 @@ public class TaskListControllerUnitTest {
     }
 
     @Test
-    public void deleteListNotInRepoTest() {
+    void deleteListNotInRepoTest() {
         when(service.delete(9999L)).thenThrow(new TaskListNotFoundException());
 
         assertThrows(TaskListNotFoundException.class, () -> controller.delete(9999L));
@@ -114,7 +113,7 @@ public class TaskListControllerUnitTest {
     }
 
     @Test
-    public void updateListTest() {
+    void updateListTest() {
         when(service.update(taskList)).thenReturn(taskListDTO);
 
         ResponseEntity<TaskListDTO> expectedReturn = new ResponseEntity<>(taskListDTO, HttpStatus.OK);

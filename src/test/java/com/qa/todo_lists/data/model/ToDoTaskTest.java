@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-public class ToDoTaskTest {
+class ToDoTaskTest {
     @Test
-    public void testEquals() {
+    void testEquals() {
         TaskList prefabTask1 = new TaskList(1L, "one");
         prefabTask1.setTasks(new ArrayList<>());
         TaskList prefabTask2 = new TaskList(2L,"two");

@@ -25,7 +25,7 @@ import java.util.List;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Sql(scripts = {"classpath:test-schema.sql", "classpath:test-data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-public class ToDoTaskControllerIntegrationTest {
+class ToDoTaskControllerIntegrationTest {
 
     @Autowired
     private MockMvc mvc;
@@ -48,7 +48,7 @@ public class ToDoTaskControllerIntegrationTest {
     }
 
     @Test
-    public void createTest() throws Exception {
+    void createTest() throws Exception {
         Date dummyDate = new Date();
         ToDoTask toSave = new ToDoTask(mainList,"toSave",dummyDate,false);
         ToDoTaskDTO expectedTask = new ToDoTaskDTO(2L,"toSave", dummyDate,false);
@@ -75,7 +75,7 @@ public class ToDoTaskControllerIntegrationTest {
     }
 
     @Test
-    public void getAllTest() throws Exception {
+    void getAllTest() throws Exception {
         MockHttpServletRequestBuilder mockRequest =
                 MockMvcRequestBuilders.request(HttpMethod.GET, "/tasks");
         mockRequest.accept(MediaType.APPLICATION_JSON);
@@ -90,7 +90,7 @@ public class ToDoTaskControllerIntegrationTest {
     }
 
     @Test
-    public void getOneTest() throws Exception {
+    void getOneTest() throws Exception {
         MockHttpServletRequestBuilder mockRequest =
                 MockMvcRequestBuilders.request(HttpMethod.GET, "/tasks?id=1");
         mockRequest.accept(MediaType.APPLICATION_JSON);
@@ -105,7 +105,7 @@ public class ToDoTaskControllerIntegrationTest {
     }
 
     @Test
-    public void updateTest() throws Exception {
+    void updateTest() throws Exception {
         Date dummyDate = new Date();
         ToDoTask updated = new ToDoTask(1L,mainList,"updated",dummyDate,true);
         ToDoTaskDTO expectedTaskList = new ToDoTaskDTO(1L,"updated", dummyDate,true);
@@ -129,7 +129,7 @@ public class ToDoTaskControllerIntegrationTest {
     }
 
     @Test
-    public void deleteTest() throws Exception{
+    void deleteTest() throws Exception{
         MockHttpServletRequestBuilder mockRequest =
                 MockMvcRequestBuilders.request(HttpMethod.DELETE, "/tasks?id=1");
         mockRequest.accept(MediaType.APPLICATION_JSON);
