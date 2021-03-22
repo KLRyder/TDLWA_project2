@@ -93,7 +93,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form onsubmit="submitNewTask(); return false;">
           <div class="mb-3">
             <label for="task-name" class="col-form-label">Task name:</label>
             <input type="text" class="form-control" id="task-name">
@@ -124,7 +124,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form onsubmit="updateTask(); return false;">
           <div class="mb-3">
             <label for="update-task-name" class="col-form-label">Task name:</label>
             <input type="text" class="form-control" id="update-task-name">
@@ -155,7 +155,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form onsubmit="submitNewList(); return false;">
           <div class="mb-3">
             <label for="List-name" class="col-form-label">List Name:</label>
             <input type="text" name="name" class="form-control" id="List-name">
@@ -182,7 +182,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form onsubmit="updateList(); return false;">
           <div class="mb-3">
             <label for="update-list-name" class="col-form-label">New Name:</label>
             <input type="text" class="form-control" id="update-list-name">
